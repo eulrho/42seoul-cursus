@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	fill_chr(char *dest, char const *src, size_t start, size_t len)
+static void	fill_chr(char *dest, char const *src, size_t start, size_t len)
 {
 	size_t	i;
 

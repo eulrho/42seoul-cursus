@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-size_t	ft_nbrlen(int n)
+static size_t	ft_nbrlen(int n)
 {
 	size_t	cnt;
 
@@ -25,7 +25,7 @@ size_t	ft_nbrlen(int n)
 	return (cnt);
 }
 
-void	insert(char *res, int n)
+static void	insert(char *res, int n)
 {
 	size_t			i;
 	unsigned int	nbr;

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	**ft_free(char **res)
+static char	**ft_free(char **res)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ char	**ft_free(char **res)
 	return (NULL);
 }
 
-void	make_word(char *s1, char const *s2, int n)
+static void	make_word(char *s1, char const *s2, int n)
 {
 	int	i;
 
@@ -39,7 +39,7 @@ void	make_word(char *s1, char const *s2, int n)
 	s1[i] = '\0';
 }
 
-int	count_word(char const *s, char c)
+static int	count_word(char const *s, char c)
 {
 	int	i;
 	int	cnt;
@@ -58,7 +58,7 @@ int	count_word(char const *s, char c)
 	return (cnt);
 }
 
-char	**ft_insert(char const *s, char **res, char c)
+static char	**ft_insert(char const *s, char **res, char c)
 {
 	int	i;
 	int	word;

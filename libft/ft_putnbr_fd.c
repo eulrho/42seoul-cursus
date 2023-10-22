@@ -12,6 +12,19 @@
 
 #include "libft.h"
 
+static size_t	ft_nbrlen(int n)
+{
+    size_t	cnt;
+
+    cnt = n <= 0;
+    while (n)
+    {
+        n /= 10;
+        cnt++;
+    }
+    return (cnt);
+}
+
 void	ft_putnbr_fd(int n, int fd)
 {
 	char			res[12];

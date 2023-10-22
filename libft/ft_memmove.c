@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	case_common(size_t len, unsigned char *dest, const unsigned char *src)
+static void	case_common(size_t len, unsigned char *dest, const unsigned char *src)
 {
 	size_t	i;
 
@@ -24,7 +24,7 @@ void	case_common(size_t len, unsigned char *dest, const unsigned char *src)
 	}
 }
 
-void	case_overlap(size_t len, unsigned char *dest, const unsigned char *src)
+static void	case_overlap(size_t len, unsigned char *dest, const unsigned char *src)
 {
 	size_t	i;
 

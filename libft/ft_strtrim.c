@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-size_t	check_set(char const s1, char const *set)
+static size_t	check_set(char const s1, char const *set)
 {
 	size_t	i;
 
@@ -27,7 +26,7 @@ size_t	check_set(char const s1, char const *set)
 	return (0);
 }
 
-size_t	total_len(char const *s1, char const *set, size_t *start, size_t *end)
+static size_t	total_len(char const *s1, char const *set, size_t *start, size_t *end)
 {
 	int	i;
 
@@ -48,7 +47,7 @@ size_t	total_len(char const *s1, char const *set, size_t *start, size_t *end)
 	return (*end - *start);
 }
 
-void	insert_str(char *res, char const *s1, size_t start, size_t end)
+static void	insert_str(char *res, char const *s1, size_t start, size_t end)
 {
 	size_t	i;
 
@@ -77,7 +76,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (res);
 }
 
-int main()
-{
-	printf("%s", ft_strtrim("aaaaaaaa", "a"));
-}
