@@ -43,13 +43,11 @@ int	count_word(char const *s, char c)
 {
 	int	i;
 	int	cnt;
-	int	flag;
 
 	i = 0;
 	cnt = 0;
 	while (s[i])
 	{
-		flag = i;
 		while (s[i] && s[i] == c)
 			i++;
 		if (s[i])

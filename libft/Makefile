@@ -4,6 +4,7 @@ OBJS = $(SRCS:.c=.o)
 BOBJS = $(BSRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
+HEAD = libft.h
 
 all : $(NAME)
 
@@ -13,14 +14,18 @@ bonus : $(NAME) $(BOBJS)
 
 $(NAME) : $(OBJS)
 	ar rc $(NAME) $(OBJS)
-
-%.o : %.c
-	cc $(CFLAGS) -c $^ -o $@
+# 만약 head를 의존대상에 포함하지 않는다면 head 수정 후에 link 안됨
+%.o : %.c ${HEAD}
+	cc $(CFLAGS) -c $< ${HEAD}
 
 clean :
 	rm -f $(OBJS) $(BOBJS)
 
 fclean : clean
 	rm -f $(NAME) bonus
+# 분리 안해주면 make -j 4 re 명령어 실행 시 터짐 
+re :
+	make fclean
+	make all
 
-re : fclean all
+.PHONY : all clean fclean re

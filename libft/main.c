@@ -4,14 +4,7 @@
 
 int main()
 {
-    int	cnt, n;
-
-    n = -1;
-	cnt = n <= 0;
-	// cnt = 0;
-	// if (n == 0)
-	// 	return (1);
-	// if (n < 0)
-	// 	cnt++;
-    printf("%d", cnt);
+    //printf("%lu\n", strlcat(NULL, "", 10));
+    printf("%lu", ft_strlcat(NULL, "", 10));
+    //printf("%s", strnstr(NULL, "", 10));
 }
