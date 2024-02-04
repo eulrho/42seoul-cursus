@@ -36,5 +36,6 @@ char	*move_address(char **lst, size_t str_size);
 int		find_newline(char *lst, t_fopen *fopen);
 char	*insert_newline(char **lst);
 void	read_line(int fd, char	**lst);
+void	free_lst(char **lst);
 
 #endif

@@ -36,10 +36,11 @@ typedef struct fopen
 char	*get_next_line(int fd);
 size_t	ft_strlcat(char *dest, char *src, size_t len);
 char	*ft_strndup(char *str, int len);
-char	*ft_strjoin(char **s1, t_fOpen fopen);
+char	*ft_strjoin(char **s1, t_fopen fopen);
 char	*move_address(char **lst, size_t str_size);
-int		find_newline(char *lst, t_fOpen *fopen);
+int		find_newline(char *lst, t_fopen *fopen);
 char	*insert_newline(char **lst);
 void	read_line(int fd, char	**lst);
+void	free_lst(char **lst);
 
 #endif

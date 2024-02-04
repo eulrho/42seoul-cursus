@@ -54,10 +54,7 @@ char	*insert_newline(char **lst)
 	if (fopen.is_newline == 1)
 		*lst = move_address(lst, fopen.str_size);
 	else
-	{
-		free(*lst);
-		*lst = NULL;
-	}
+		free_lst(lst);
 	return (res);
 }
 
@@ -67,16 +64,18 @@ void	read_line(int fd, char	**lst)
 
 	fopen.is_newline = 0;
 	fopen.buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (fopen.buff == NULL)
+	{
+		free_lst(lst);
+		return ;
+	}
 	while (fopen.is_newline != 1)
 	{
 		fopen.read_size = read(fd, fopen.buff, BUFFER_SIZE);
 		if (fopen.read_size <= 0)
 		{
 			if (!(fopen.read_size == 0 && (*lst)[0] != '\0'))
-			{
-				free(*lst);
-				*lst = NULL;
-			}
+				free_lst(lst);
 			break ;
 		}
 		fopen.buff[fopen.read_size] = '\0';

@@ -12,6 +12,12 @@
 
 #include "get_next_line_bonus.h"
 
+void	free_lst(char **lst)
+{
+	free(*lst);
+	*lst = NULL;
+}
+
 char	*ft_strndup(char *str, int len)
 {
 	char	*res;
