@@ -25,13 +25,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct fOpen
+typedef struct fopen
 {
 	int		read_size;
 	char	*buff;
 	size_t	str_size;
 	int		is_newline;
-}	t_fOpen;
+}	t_fopen;
 
 char	*get_next_line(int fd);
 size_t	ft_strlcat(char *dest, char *src, size_t len);

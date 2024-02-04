@@ -25,7 +25,7 @@ char	*move_address(char **lst, size_t str_size)
 	return (res);
 }
 
-int	find_newline(char *lst, t_fOpen *fopen)
+int	find_newline(char *lst, t_fopen *fopen)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ int	find_newline(char *lst, t_fOpen *fopen)
 char	*insert_newline(char **lst)
 {
 	char	*res;
-	t_fOpen	fopen;
+	t_fopen	fopen;
 
 	fopen.str_size = find_newline(*lst, &fopen);
 	res = ft_strndup(*lst, fopen.str_size);
@@ -63,7 +63,7 @@ char	*insert_newline(char **lst)
 
 void	read_line(int fd, char	**lst)
 {
-	t_fOpen	fopen;
+	t_fopen	fopen;
 
 	fopen.is_newline = 0;
 	fopen.buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));

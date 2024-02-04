@@ -55,7 +55,7 @@ size_t	ft_strlcat(char *dest, char *src, size_t len)
 	return (dest_len + src_len);
 }
 
-char	*ft_strjoin(char **s1, t_fOpen fopen)
+char	*ft_strjoin(char **s1, t_fopen fopen)
 {
 	char	*res;
 	size_t	len;
