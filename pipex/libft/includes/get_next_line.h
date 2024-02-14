@@ -17,9 +17,12 @@
 #  define BUFFER_SIZE 1024
 # endif
 
+# include <stdlib.h>
+# include <unistd.h>
+
 typedef struct s_fopen
 {
-	int		read_size;
+	ssize_t	read_size;
 	char	*buff;
 	size_t	str_size;
 	int		is_newline;

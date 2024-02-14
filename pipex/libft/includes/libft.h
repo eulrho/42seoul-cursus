@@ -16,8 +16,6 @@
 # define MEMORY 50
 # define WRITE 53
 
-# include <stdlib.h>
-# include <unistd.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
 

@@ -14,6 +14,8 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 size_t	ft_nbrlen_base(unsigned long long n, int base_nb);
 int		conv_nbr(char *base, unsigned int n, int base_nb);
