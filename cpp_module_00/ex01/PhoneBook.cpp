@@ -69,8 +69,8 @@ void PhoneBook::addPhoneBook()
 	book[this->index].setNickname(nickname);
 	book[this->index].setPhoneNumber(phoneNumber);
 	book[this->index].setDarkestSecret(darkestSecret);
-	this->index = (this->index + 1) % 8;
 
+	this->index = (this->index + 1) % 8;
 	if (bookSize < 8)
 		this->bookSize += 1;
 	std::cout << "Contact added\n";
