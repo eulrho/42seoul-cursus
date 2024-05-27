@@ -8,15 +8,15 @@ Contact::~Contact()
 	std::cout << "destructor called in contact"  << std::endl;
 }
 
-std::string Contact::getFirstName() const {return firstName;}
+const std::string Contact::getFirstName() const {return firstName;}
 
-std::string Contact::getLastName() const {return lastName;}
+const std::string Contact::getLastName() const {return lastName;}
 
-std::string Contact::getNickname() const {return nickname;}
+const std::string Contact::getNickname() const {return nickname;}
 
-std::string Contact::getPhoneNumber() const {return phoneNumber;}
+const std::string Contact::getPhoneNumber() const {return phoneNumber;}
 
-std::string Contact::getDarkestSecret() const {return darkestSecret;}
+const std::string Contact::getDarkestSecret() const {return darkestSecret;}
 
 void Contact::setFirstName(std::string firstName) {this->firstName = firstName;}
 
