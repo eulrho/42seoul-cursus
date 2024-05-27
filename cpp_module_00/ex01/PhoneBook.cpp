@@ -32,7 +32,7 @@ bool PhoneBook::isSpace(std::string str)
 {
 	for (int i = 0; i < (int)str.length(); i++) {
 		if (std::isspace(str[i]) && str[i] != '\n') {
-			std::cout << "Invalid value : " << str << " contain white some spaces" << std::endl;
+			std::cout << "Invalid value : \"" << str << "\" contain some white spaces" << std::endl;
 			return true;
 		}
 	}
@@ -57,13 +57,13 @@ void PhoneBook::addPhoneBook()
 	std::cout << "Please enter the first name...\n";
 	if (!stringInput(firstName) || isSpace(firstName)) return ;
 	std::cout << "Please enter the last name...\n";
-	if (!stringInput(lastName) || isSpace(firstName)) return ;
+	if (!stringInput(lastName) || isSpace(lastName)) return ;
 	std::cout << "Please enter the nickname...\n";
-	if (!stringInput(nickname) || isSpace(firstName)) return ;
+	if (!stringInput(nickname) || isSpace(nickname)) return ;
 	std::cout << "Please enter the phone number(except for '-')...\n";
 	if (!stringInput(phoneNumber) || !isDigit(phoneNumber)) return ;
 	std::cout << "Please enter the darkest secret...\n";
-	if (!stringInput(darkestSecret) || isSpace(firstName)) return ;
+	if (!stringInput(darkestSecret) || isSpace(darkestSecret)) return ;
 	book[this->index].setFirstName(firstName);
 	book[this->index].setLastName(lastName);
 	book[this->index].setNickname(nickname);

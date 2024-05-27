@@ -1,4 +1,4 @@
-CXX = c++
+CXX			= c++
 NAME		= ex01
 HEADER_DIR	= .
 CPP_FLAGS	= -Wall -Wextra -Werror -std=c++98
