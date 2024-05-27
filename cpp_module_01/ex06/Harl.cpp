@@ -42,12 +42,16 @@ void Harl::complain(std::string level)
 	switch(i) {
 		case 0:
 			debug();
+			/* FALLTHRU */
 		case 1:
 			info();
+			/* FALLTHRU */
 		case 2:
 			warning();
+			/* FALLTHRU */
 		case 3:
 			error();
+			/* FALLTHRU */
 			break;
 		default :
 			std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
