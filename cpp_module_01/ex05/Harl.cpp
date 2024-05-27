@@ -5,7 +5,7 @@ Harl::Harl() {}
 
 Harl::~Harl()
 {
-	std::cout << "destructor called" << std::endl;
+	//std::cout << "destructor called" << std::endl;
 }
 
 void Harl::debug(void)
