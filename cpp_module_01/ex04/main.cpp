@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "Converter.hpp"
+#include "converter.hpp"
 
 int printError(int error_type)
 {
@@ -9,24 +9,28 @@ int printError(int error_type)
 		std::cout << "Invalid input value\n";
 	else if (error_type == ERROR_TYPE_OPEN)
 		std::cout << "Failed to open the file\n";
+	else if (error_type == ERROR_TYPE_EMPTY_STRING)
+		std::cout << "string is empty\n";
 	return (1);
 }
 
 void printFile(std::string contents, std::string *str, std::ofstream &fout)
 {
-	std::string *pcontents = &contents;
-	int len = contents.length();
-	int index = 0;
 
-	while (index < contents.length()) {
-		std::string::size_type n = pcontents->find(str[0]);
-		
+	int idx = 0;
+	int len = contents.length();
+
+	while (idx < len) {
+		std::string::size_type n = contents.find(str[0], idx);
+
 		if (n == std::string::npos) {
-			fout << *pcontents;
+			fout << contents.substr(idx);
+			return ;
 		}
-		std::cout << result << '\n';
+		fout << contents.substr(idx, n - idx);
+		fout << str[1];
+		idx = n + str[0].length();
 	}
-	
 }
 
 int readFile(std::string fileName, std::string *str)
@@ -49,7 +53,6 @@ int readFile(std::string fileName, std::string *str)
 				printFile(tmp, str, fout);
 			}
 		}
-		if (str1 == "") fout << str2;
 	}
 	else
 		status = printError(ERROR_TYPE_OPEN);
@@ -60,15 +63,15 @@ int readFile(std::string fileName, std::string *str)
 
 int main(int argc, char *argv[])
 {
-	std::string fileName(argv[1]);
-	std::string newFile = fileName + ".replace";
-	std::string str[2] = {argv[2], argv[3]};
-	std::ifstream fin(fileName);
-	std::ofstream fout(newFile);
-	int status = 0;
-
 	if (argc != 4)
 		return (printError(ERROR_TYPE_INPUT));
+
+	std::string fileName(argv[1]);
+	std::string str[2] = {argv[2], argv[3]};
+	int status = 0;
+	
 	if (str[0].empty())
-	return 0;
+		return (printError(ERROR_TYPE_INPUT));
+	status = readFile(fileName, str);
+	return status;
 }

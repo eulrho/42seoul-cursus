@@ -3,7 +3,7 @@ NAME		= ex04
 HEADER_DIR	= .
 CPP_FLAGS	= -Wall -Wextra -Werror -std=c++98
 RM			= rm -f
-SRCSNAME	= main.cpp
+SRCSNAME	= main
 SRCS		= $(addsuffix .cpp, $(SRCSNAME))
 OBJS		= $(addsuffix .o, $(SRCSNAME))
 DEPS		= $(addsuffix .d, $(SRCSNAME))

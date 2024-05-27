@@ -4,18 +4,25 @@
 int main()
 {
 	std::string str = "HI THIS IS BRAIN";
-	std::string *pstr = &str;
-	std::string &rstr = str;
+	std::string *stringPTR = &str;
+	std::string &stringREF = str;
 
 	std::cout << "***** Memory address *****\n";
 	std::cout << &str << std::endl;
-	std::cout << pstr << std::endl;
-	std::cout << &rstr << std::endl;
-	std::cout << '\n';
+	std::cout << stringPTR << std::endl;
+	std::cout << &stringREF << std::endl;
 
-	std::cout << "***** string value *****\n";
+	std::cout << "\n***** string value *****\n";
 	std::cout << str << std::endl;
-	std::cout << *pstr << std::endl;
-	std::cout << rstr << std::endl;
+	std::cout << *stringPTR << std::endl;
+	std::cout << stringREF << std::endl;
+
+	// std::cout << "\n***** another test *****\n";
+	// std::string tmp = "test";
+	// stringREF = tmp;
+	// std::cout << &tmp << std::endl;
+	// std::cout << &stringREF << std::endl;
+	// std::cout << stringREF << std::endl;
+	// std::cout << str << std::endl;
 	return (0);
 }
