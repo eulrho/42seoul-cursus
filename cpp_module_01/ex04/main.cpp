@@ -36,10 +36,12 @@ void printFile(std::string contents, std::string *str, std::ofstream &fout)
 int readFile(std::string fileName, std::string *str)
 {
 	std::string newFile = fileName + ".replace";
-	std::ifstream fin(fileName);
-	std::ofstream fout(newFile);
+	std::ifstream fin;
+	std::ofstream fout;
 	int status = 0;
 
+	fin.open(fileName.c_str());
+	fout.open(newFile.c_str());
 	if (fin.is_open() && fout.is_open()) {
 		std::string tmp;
 
