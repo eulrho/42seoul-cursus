@@ -1,6 +1,10 @@
 #ifndef CLAPTRAP_HPP
 #define CLAPTRAP_HPP
 
+# define HP_MAX 10
+# define EP_MAX 10
+# define ATTACK_DAMAGE 0
+
 # include <string>
 
 class ClapTrap {
