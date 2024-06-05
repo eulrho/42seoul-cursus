@@ -29,6 +29,14 @@ int main()
 	FragTrap cc = *c;
 	cc.status();
 	std::cout << std::endl;
+	std::cout << "========== Copy assignment operator ==========" << std::endl;
+	std::cout << "\033[1;35m" << "[FragTrap <- FragTrap]" << "\033[0m" << std::endl;
+	FragTrap dd;
+
+	dd.status();
+	dd = cc;
+	dd.status();
+	std::cout << std::endl;
 	std::cout << "========== Attack ==========" << std::endl;
 	a->attack("b");
 	b->attack("a");
