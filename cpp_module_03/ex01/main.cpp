@@ -7,10 +7,13 @@ int main()
 	std::cout << "========== Create ==========" << std::endl;
 	std::cout << "\033[1;35m" << "[ClapTrap <- ClapTrap]" << "\033[0m" << std::endl;
 	ClapTrap *a = new ClapTrap("a");
+	a->status();
 	std::cout << "\033[1;35m" << "[ClapTrap <- ScavTrap]" << "\033[0m" << std::endl;
 	ClapTrap *b = new ScavTrap("b");
+	b->status();
 	std::cout << "\033[1;35m" << "[ScavTrap <- ScavTrap]" << "\033[0m" << std::endl;
 	ScavTrap *c = new ScavTrap("c");
+	c->status();
 
 	std::cout << std::endl;
 	std::cout << "========== Copy constructor ==========" << std::endl;
@@ -30,16 +33,14 @@ int main()
 	std::cout << "\033[1;35m" << "[ScavTrap <- ScavTrap]" << "\033[0m" << std::endl;
 	ScavTrap dd;
 
+	dd.status();
 	dd = cc;
 	dd.status();
 	std::cout << std::endl;
 	std::cout << "========== Attack ==========" << std::endl;
 	a->attack("b");
-	b->takeDamage(0);
 	b->attack("a");
-	a->takeDamage(20);
 	c->attack("b");
-	b->takeDamage(20);
 	std::cout << std::endl;
 	std::cout << "========== Test : guardGate ==========" << std::endl;
 	//b->guardGate(); // error
