@@ -1,7 +1,7 @@
 #include <iostream>
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() : name(""), hitPoint(HP_MAX), energyPoints(EP_MAX), attackDamage(ATTACK_DAMAGE)
+ClapTrap::ClapTrap() : name("anonymous"), hitPoint(HP_MAX), energyPoints(EP_MAX), attackDamage(ATTACK_DAMAGE)
 {
 	std::cout << "ClapTrap : default constructor called" << std::endl;
 }
@@ -36,7 +36,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 
 void ClapTrap::attack(const std::string& target)
 {
-	if (this->energyPoints == 0) return ;
+	if (this->hitPoint == 0 || this->energyPoints == 0) return ;
 	this->energyPoints--;
 	std::cout << "ClapTrap " << this->name << " attacks " << target
 		<< ", causing " << this->attackDamage << " points of damage!" << std::endl;
@@ -49,7 +49,8 @@ void ClapTrap::takeDamage(unsigned int amount)
 	if (this->hitPoint == 0) return ;
 	if (this->hitPoint >= amount)
 		this->hitPoint -= amount;
-	else this->hitPoint = 0;
+	else
+		this->hitPoint = 0;
 	this->attackDamage += amount;
 	std::cout << "ClapTrap " << this->name << " take damage " << amount << std::endl;
 	std::cout << "ClapTrap " << this->name << " has " << this->hitPoint
