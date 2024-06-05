@@ -11,24 +11,31 @@ int main()
 	std::cout << std::endl;
 	std::cout << "========== Attack ==========" << std::endl;
 	a.attack("b");
+	b.takeDamage(0);
 	std::cout << std::endl;
-	std::cout << "========== Take damage ==========" << std::endl;
+	std::cout << "========== Test : beRepaired ==========" << std::endl;
 	a.takeDamage(1);
-	a.takeDamage(3);
-	std::cout << std::endl;
-	b.takeDamage(20);
-	std::cout << std::endl;
-	std::cout << "========== Be repaired ==========" << std::endl;
+	a.takeDamage(4);
 	a.beRepaired(3);
 	a.beRepaired(2);
 	std::cout << std::endl;
 	b.beRepaired(1);
-	std::cout << "========== Energy Test ==========" << std::endl;
-	for (int i=0; i<10; i++) {
-		std::cout << '[' << i + 1 << ']' << std::endl;
+	std::cout << std::endl;
+	std::cout << "========== Test : Hit points ==========" << std::endl;
+	b.takeDamage(20);
+	std::cout << std::endl;
+	b.takeDamage(20);
+	std::cout << std::endl;
+	b.attack("a");
+	b.beRepaired(3);
+	std::cout << "========== Test : Energy points ==========" << std::endl;
+	for (int i=0; i<7; i++) {
 		a.attack("b");
 		std::cout << std::endl;
 	}
+	a.takeDamage(1);
+	a.beRepaired(3);
+	a.attack("b");
 	std::cout << "========== Destroy ==========" << std::endl;
 	return (0);
 }
