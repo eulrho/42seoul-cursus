@@ -38,10 +38,12 @@ void ClapTrap::attack(const std::string& target)
 {
 	if (this->hitPoints == 0 || this->energyPoints == 0) return ;
 	this->energyPoints--;
-	std::cout << "\033[1;34m" << "ClapTrap " << this->name << " attacks " << target
+	std::cout << "\033[1;34m";
+	std::cout << "ClapTrap " << this->name << " attacks " << target
 		<< ", causing " << this->attackDamage << " points of damage!" << std::endl;
 	std::cout << "ClapTrap " << this->name << " has " << this->energyPoints
-		<< " energy points left" << "\033[0m" << std::endl;
+		<< " energy points left" << std::endl;
+	std::cout << "\033[0m";
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
@@ -52,9 +54,11 @@ void ClapTrap::takeDamage(unsigned int amount)
 	else
 		this->hitPoints = 0;
 	this->attackDamage += amount;
-	std::cout << "\033[1;31m" << "ClapTrap " << this->name << " take damage " << amount << std::endl;
+	std::cout << "\033[1;31m";
+	std::cout << "ClapTrap " << this->name << " take damage " << amount << std::endl;
 	std::cout << "ClapTrap " << this->name << " has " << this->hitPoints
-		<< " hit points left" << "\033[0m" << std::endl;
+		<< " hit points left" << std::endl;
+	std::cout << "\033[0m";
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
@@ -67,8 +71,20 @@ void ClapTrap::beRepaired(unsigned int amount)
 		this->hitPoints = 10;
 	else
 		this->hitPoints += amount;
-	std::cout << "\033[1;32m" << "ClapTrap " << this->name << " is repaired, increasing hit point from "
+	std::cout << "\033[1;32m";
+	std::cout << "ClapTrap " << this->name << " is repaired, increasing hit point from "
 		<< tmp << " to " << this->hitPoints << std::endl;
 	std::cout << "ClapTrap " << this->name << " has " << this->energyPoints
-		<< " energy points left" << "\033[0m" << std::endl;
+		<< " energy points left" << std::endl;
+	std::cout << "\033[0m";
+}
+
+void ClapTrap::status()
+{
+	std::cout << "\033[1;36m";
+	std::cout << "name : " << this->name << std::endl;
+	std::cout << "hit points : " << this->hitPoints << std::endl;
+	std::cout << "energy points : " << this->energyPoints << std::endl;
+	std::cout << "attack damage : " << this->attackDamage << std::endl;
+	std::cout << "\033[0m";
 }
