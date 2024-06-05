@@ -11,7 +11,7 @@ int main()
 	std::cout << std::endl;
 	std::cout << "========== Attack ==========" << std::endl;
 	a.attack("b");
-	b.takeDamage(0);
+	b.takeDamage(a.getAttackDamage());
 	std::cout << std::endl;
 	std::cout << "========== Test : beRepaired ==========" << std::endl;
 	a.takeDamage(1);
@@ -24,18 +24,25 @@ int main()
 	std::cout << "========== Test : Hit points ==========" << std::endl;
 	b.takeDamage(20);
 	std::cout << std::endl;
+	std::cout << "[takeDamage]" << std::endl;
 	b.takeDamage(20);
-	std::cout << std::endl;
+	std::cout << "[attack]" << std::endl;
 	b.attack("a");
+	std::cout << "[beRepaired]" << std::endl;
 	b.beRepaired(3);
+	std::cout << std::endl;
 	std::cout << "========== Test : Energy points ==========" << std::endl;
 	for (int i=0; i<7; i++) {
 		a.attack("b");
 		std::cout << std::endl;
 	}
+	std::cout << "[takeDamage]" << std::endl;
 	a.takeDamage(1);
+	std::cout << "[beRepaired]" << std::endl;
 	a.beRepaired(3);
+	std::cout << "[attack]" << std::endl;
 	a.attack("b");
+	std::cout << std::endl;
 	std::cout << "========== Destroy ==========" << std::endl;
 	return (0);
 }

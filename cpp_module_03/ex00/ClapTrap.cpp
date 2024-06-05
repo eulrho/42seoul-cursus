@@ -88,3 +88,8 @@ void ClapTrap::status()
 	std::cout << "attack damage : " << this->attackDamage << std::endl;
 	std::cout << "\033[0m";
 }
+
+const unsigned int &ClapTrap::getAttackDamage() const
+{
+	return this->attackDamage;
+}
