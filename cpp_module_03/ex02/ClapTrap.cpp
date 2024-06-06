@@ -53,7 +53,6 @@ void ClapTrap::takeDamage(unsigned int amount)
 		this->hitPoints -= amount;
 	else
 		this->hitPoints = 0;
-	this->attackDamage += amount;
 	std::cout << "\033[1;31m";
 	std::cout << "ClapTrap " << this->name << " take damage " << amount << std::endl;
 	std::cout << "ClapTrap " << this->name << " has " << this->hitPoints
