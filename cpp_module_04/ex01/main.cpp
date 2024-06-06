@@ -12,33 +12,25 @@
 int main()
 {
 	// std::atexit(leaks);
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
 	Animal* meta[10];
 
-	std::cout << std::endl;
 	for (int k=0; k<5; k++) {
 		meta[k] = new Dog();
-		std::cout << std::endl;
-		*meta[k] = *j;
 		std::cout << std::endl;
 	}
 	for (int k=5; k<10; k++) {
 		meta[k] = new Cat();
 		std::cout << std::endl;
-		*meta[k] = *i;
-		std::cout << std::endl;
 	}
 	for (int k=0; k<10; k++)
 		std::cout << meta[k]->getType() << std::endl;
 	std::cout << std::endl;
-	for (int k=0; k<10; k++)
+	for (int k=0; k<10; k++) {
 		delete meta[k];
-	delete j;
-	delete i;
+		std::cout << std::endl;
+	}
 
-	std::cout << std::endl;
-	std::cout << "=============== Test : brain ===============" << std::endl;
+	std::cout << "=============== Test : brain of cat ===============" << std::endl;
 	Cat *a = new Cat();
 
 	std::cout << std::endl;
@@ -56,5 +48,25 @@ int main()
 	std::cout << std::endl;
 	delete a;
 	delete b;
+
+	std::cout << std::endl;
+	std::cout << "=============== Test : brain of dog ===============" << std::endl;
+	Dog *c = new Dog();
+
+	std::cout << std::endl;
+	c->setBrain("aaa");
+	c->setBrain("bbb");
+	c->printBrain();
+	std::cout << std::endl;
+	Dog *d = new Dog(*c);
+	std::cout << std::endl;
+	c->setBrain("ccc");
+	c->printBrain();
+	std::cout << std::endl;
+	d->setBrain("ddd");
+	d->printBrain();
+	std::cout << std::endl;
+	delete c;
+	delete d;
 	return 0;
 }
