@@ -93,3 +93,8 @@ const unsigned int &ClapTrap::getAttackDamage() const
 {
 	return this->attackDamage;
 }
+
+const std::string &ClapTrap::getName() const
+{
+	return this->name;
+}

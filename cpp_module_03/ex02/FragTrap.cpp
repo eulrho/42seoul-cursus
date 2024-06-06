@@ -48,7 +48,8 @@ void FragTrap::attack(const std::string& target)
 
 void FragTrap::highFivesGuys()
 {
+	if (this->hitPoints == 0 || this->energyPoints == 0) return ;
 	std::cout << "\033[1;33m";
-	std::cout << "Hi Guys! Let's do a high five with me" << std::endl;
+	std::cout << "Hi guys! Let's do a high five with me" << std::endl;
 	std::cout << "\033[0m";
 }

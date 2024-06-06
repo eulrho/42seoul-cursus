@@ -38,9 +38,12 @@ int main()
 	dd.status();
 	std::cout << std::endl;
 	std::cout << "========== Attack ==========" << std::endl;
-	a->attack("b");
-	b->attack("a");
-	c->attack("b");
+	a->attack(b->getName());
+	b->takeDamage(a->getAttackDamage());
+	b->attack(a->getName());
+	a->takeDamage(b->getAttackDamage());
+	c->attack(b->getName());
+	b->takeDamage(c->getAttackDamage());
 	std::cout << std::endl;
 	std::cout << "========== Test : guardGate ==========" << std::endl;
 	//b->guardGate(); // error

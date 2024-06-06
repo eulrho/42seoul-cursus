@@ -10,7 +10,7 @@ int main()
 
 	std::cout << std::endl;
 	std::cout << "========== Attack ==========" << std::endl;
-	a.attack("b");
+	a.attack(b.getName());
 	b.takeDamage(a.getAttackDamage());
 	std::cout << std::endl;
 	std::cout << "========== Test : beRepaired ==========" << std::endl;

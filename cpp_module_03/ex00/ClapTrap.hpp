@@ -20,6 +20,7 @@ class ClapTrap {
 		void beRepaired(unsigned int amount);
 		void status();
 		const unsigned int &getAttackDamage() const;
+		const std::string &getName() const;
 };
 
 #endif
