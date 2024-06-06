@@ -11,12 +11,14 @@ int main()
 	const Animal* j = new Dog();
 	const Animal* i = new Cat();
 
+	std::cout << std::endl;
 	std::cout << j->getType() << " " << std::endl;
 	std::cout << i->getType() << " " << std::endl;
 	i->makeSound();
 	j->makeSound();
 	meta->makeSound();
 
+	std::cout << std::endl;
 	delete meta;
 	delete j;
 	delete i;
@@ -26,11 +28,13 @@ int main()
 	const WrongAnimal* k = new WrongAnimal();
 	const WrongAnimal* m = new WrongCat();
 
+	std::cout << std::endl;
 	std::cout << m->getType() << " " << std::endl;
 	m->makeSound();
 	k->makeSound();
 	
-	delete m;
+	std::cout << std::endl;
 	delete k;
+	delete m;
 	return 0;
 }

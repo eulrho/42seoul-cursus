@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Brain.hpp"
 
-Brain::Brain()
+Brain::Brain() : size(0), index(0)
 {
 	std::cout << "Brain : default constructor called" << std::endl;
 }
@@ -22,8 +22,23 @@ Brain &Brain::operator=(const Brain &other)
 	std::cout << "Brain : copy assignment operator called" << std::endl;
 	if (this != &other)
 	{
-		for (int i=0; i<100; i++)
+		this->index = other.index;
+		this->size = other.size;
+		for (unsigned int i=0; i<this->size; i++)
 			this->ideas[i] = other.ideas[i];
 	}
 	return *this;
+}
+
+void Brain::printIdeas() const
+{
+	for (unsigned int i=0; i<this->size; i++)
+		std::cout << this->ideas[i] << std::endl;
+}
+
+void Brain::setIdeas(const std::string &str)
+{
+	this->ideas[this->index] = str;
+	this->index = this->index + 1 == 100 ? 0 : index + 1;
+	this->size = this->size == 100 ? this->size : this->size + 1;
 }
