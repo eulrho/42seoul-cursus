@@ -11,7 +11,7 @@
 
 int main()
 {
-	//std::atexit(leaks);
+	// std::atexit(leaks);
 	const Animal* j = new Dog();
 	const Animal* i = new Cat();
 	Animal* meta[10];
@@ -33,5 +33,13 @@ int main()
 		delete meta[k];
 	delete j;
 	delete i;
+
+	// std::cout << std::endl;
+	// std::cout << "=============== Test : brain ===============" << std::endl;
+	// Cat *a = new Cat();
+	// Cat *b = new Cat(*a);
+
+	// delete a;
+	// delete b;
 	return 0;
 }
