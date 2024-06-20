@@ -62,7 +62,7 @@ void Bureaucrat::decreaseGrade()
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &bureaucrat)
 {
 	out << "\033[1;36m" << bureaucrat.getName() << "\033[0m" << ", bureaucrat grade "
-	<< "\033[1;36m" << bureaucrat.getGrade() << "\033[0m" << ".";
+		<< "\033[1;36m" << bureaucrat.getGrade() << "\033[0m" << ".";
 	return out;
 }
 
