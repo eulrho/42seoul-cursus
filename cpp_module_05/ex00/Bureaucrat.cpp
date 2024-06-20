@@ -25,7 +25,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other) : name(other.getName()), grade(o
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
-	std::cout << "copy assignment operator called" << std::endl;
+	throw CopyConstException();
 	(void)other;
 	return *this;
 }
@@ -73,4 +73,9 @@ const char* Bureaucrat::GradeTooHighException::what() const throw()
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return "the grade is too low";
+}
+
+const char* Bureaucrat::CopyConstException::what() const throw()
+{
+	return "const type is included in the member variables";
 }
