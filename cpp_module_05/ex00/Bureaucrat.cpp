@@ -27,10 +27,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat &other) : name(other.getName()), grade(o
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
 {
 	std::cout << "copy assignment operator called" << std::endl;
-	if (this != &other) {
-		//this->name = other.getName();
-		this->grade = other.getGrade();
-	}
+	(void)other;
 	return *this;
 }
 

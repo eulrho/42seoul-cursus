@@ -16,7 +16,9 @@ int main()
 		std::cout << "\033[1;34m" << "normal case" << "\033[0m";
 		std::cout << " =====================" << std::endl;
 		Bureaucrat *a = new Bureaucrat("a", 4);
-
+		// Bureaucrat *k = new Bureaucrat("k", 1);
+		// *a = *k;
+		// delete k;
 		try {
 			std::cout << std::endl;
 			std::cout << *a << std::endl;
