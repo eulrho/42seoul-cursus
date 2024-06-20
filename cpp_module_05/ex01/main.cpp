@@ -11,7 +11,6 @@ void leaks(void)
 int main()
 {
 	//std::atexit(leaks);
-
 	try {
 		std::cout << "===================== ";
 		std::cout << "\033[1;34m" << "test : constructor(sGrade:out of grade)" << "\033[0m";

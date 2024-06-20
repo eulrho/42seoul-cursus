@@ -27,7 +27,7 @@ Form::Form(const Form &other) : name(other.getName()), isSigned(other.getIsSigne
 
 Form &Form::operator=(const Form &other)
 {
-	std::cout << "Form : copy assignment operator called" << std::endl;
+	throw CopyConstException();
 	(void)other;
 	return *this;
 }
@@ -55,6 +55,11 @@ const char* Form::GradeTooHighException::what() const throw()
 const char* Form::GradeTooLowException::what() const throw()
 {
 	return "the grade is too low";
+}
+
+const char* Form::CopyConstException::what() const throw()
+{
+	return "const type is included in the member variables";
 }
 
 std::ostream &operator<<(std::ostream &out, const Form &form)

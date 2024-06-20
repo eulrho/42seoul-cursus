@@ -12,12 +12,12 @@ class Form {
 		bool isSigned;
 		const int sGrade;
 		const int eGrade;
-		Form &operator=(const Form&);
 	public:
 		Form();
 		~Form();
 		Form(std::string, int, int);
 		Form(const Form&);
+		Form &operator=(const Form&);
 		const std::string &getName() const;
 		const bool &getIsSigned() const;
 		const int &getSGrade() const;
@@ -28,6 +28,10 @@ class Form {
 				const char* what() const throw();
 		};
 		class GradeTooLowException : public std::exception {
+			public:
+				const char* what() const throw();
+		};
+		class CopyConstException : public std::exception {
 			public:
 				const char* what() const throw();
 		};
