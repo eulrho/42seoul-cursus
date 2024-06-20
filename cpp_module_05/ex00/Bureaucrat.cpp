@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstdlib>
 #include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat() : name("anonymous"), grade(10)
