@@ -1,70 +1,116 @@
 #include <iostream>
 #include <cstdlib>
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 void leaks(void)
 {
-	std::system("leaks ex01");
+	std::system("leaks ex02");
 }
 
 int main()
 {
 	//std::atexit(leaks);
 
-	try {
-		std::cout << "===================== ";
-		std::cout << "\033[1;34m" << "test : constructor(sGrade:out of grade)" << "\033[0m";
-		std::cout << " =====================" << std::endl;
-		Form *form1 = new Form("form1", 151, 3);
+	std::cout << "===================== ";
+	std::cout << "\033[1;34m" << "test : ShrubberyCreationForm" << "\033[0m";
+	std::cout << " =====================" << std::endl;
+	AForm *form1 = new ShrubberyCreationForm("type_A");
+	Bureaucrat *a = new Bureaucrat("a", 140);
+	Bureaucrat *b = new Bureaucrat("b", 130);
+	std::cout << std::endl;
 
-		delete form1;
+	std::cout << *form1 << std::endl;
+	try {
+		std::cout << *a << std::endl;
+		a->signForm(*form1);
+		a->executeForm(*form1);
 	}
 	catch(std::exception &ex) {
 		std::cout << std::endl;
 		std::cout << ex.what() << std::endl;
 	}
-
 	try {
-		std::cout << std::endl;
-		std::cout << "===================== ";
-		std::cout << "\033[1;34m" << "test : constructor(eGrade:out of grade)" << "\033[0m";
-		std::cout << " =====================" << std::endl;
-		Form *form2 = new Form("form2", 5, 0);
-
-		delete form2;
+		std::cout << *b << std::endl;
+		b->executeForm(*form1);
 	}
 	catch(std::exception &ex) {
 		std::cout << std::endl;
 		std::cout << ex.what() << std::endl;
 	}
-
+	
 	std::cout << std::endl;
-	std::cout << "=========== ";
-	std::cout << "\033[1;34m" << "test : sign" << "\033[0m";
-	std::cout << " ===========" << std::endl;
-	Bureaucrat *a = new Bureaucrat("a", 3);
-	Bureaucrat *b = new Bureaucrat("b", 10);
-	Form *form3 = new Form("form3", 3, 3);
-	Form *form4 = new Form("form4", 5, 5);
-
-	std::cout << std::endl;
-	std::cout << *a << std::endl;
-	std::cout << *b << std::endl;
-	std::cout << *form3 << std::endl;
-	std::cout << *form4 << std::endl;
-	std::cout << "\033[1;33m" << "[success]" << "\033[0m" << std::endl;
-	a->signForm(*form3);
-	std::cout << *form3 << std::endl;
-	std::cout << "\033[1;31m" << "[fail]" << "\033[0m" << std::endl;
-	b->signForm(*form4);
-	std::cout << *form4 << std::endl;
-
-	std::cout << std::endl;
+	delete form1;
 	delete a;
 	delete b;
-	delete form3;
-	delete form4;
+
 	std::cout << std::endl;
+	std::cout << "===================== ";
+	std::cout << "\033[1;34m" << "test : RobotomyRequestForm" << "\033[0m";
+	std::cout << " =====================" << std::endl;
+	AForm *form2 = new RobotomyRequestForm("type_B");
+	Bureaucrat *c = new Bureaucrat("c", 80);
+	Bureaucrat *d = new Bureaucrat("d", 10);
+	std::cout << std::endl;
+
+	std::cout << *form2 << std::endl;
+	try {
+		std::cout << *c << std::endl;
+		c->executeForm(*form2);
+	}
+	catch(std::exception &ex) {
+		std::cout << std::endl;
+		std::cout << ex.what() << std::endl;
+	}
+	try {
+		std::cout << *d << std::endl;
+		d->signForm(*form2);
+		d->executeForm(*form2);
+	}
+	catch(std::exception &ex) {
+		std::cout << std::endl;
+		std::cout << ex.what() << std::endl;
+	}
+	
+	std::cout << std::endl;
+	delete form2;
+	delete c;
+	delete d;
+
+	std::cout << std::endl;
+	std::cout << "===================== ";
+	std::cout << "\033[1;34m" << "test : PresidentailPardonForm" << "\033[0m";
+	std::cout << " =====================" << std::endl;
+	AForm *form3 = new PresidentialPardonForm("type_C");
+	Bureaucrat *e = new Bureaucrat("e", 10);
+	Bureaucrat *f = new Bureaucrat("f", 1);
+	std::cout << std::endl;
+
+	std::cout << *form3 << std::endl;
+	try {
+		std::cout << *e << std::endl;
+		e->executeForm(*form3);
+	}
+	catch(std::exception &ex) {
+		std::cout << std::endl;
+		std::cout << ex.what() << std::endl;
+	}
+	try {
+		std::cout << *f << std::endl;
+		f->signForm(*form3);
+		f->executeForm(*form3);
+	}
+	catch(std::exception &ex) {
+		std::cout << std::endl;
+		std::cout << ex.what() << std::endl;
+	}
+	
+	std::cout << std::endl;
+	delete form3;
+	delete e;
+	delete f;
 	return 0;
 }

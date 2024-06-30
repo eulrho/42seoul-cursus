@@ -2,7 +2,7 @@
 #include <fstream>
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm()
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("anonymous", 145, 137)
 {
 	std::cout << "ShrubberyCreationForm : default constructor called" << std::endl;
 	this->target = "anonymous";
@@ -13,12 +13,12 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 	std::cout << "ShrubberyCreationForm : destructor called" << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : target(target)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("anonymous", 145, 137), target(target)
 {
 	std::cout << "ShrubberyCreationForm : constructor called" << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other)
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other) : AForm(other)
 {
 	std::cout << "ShrubberyCreationForm : copy constructor called" << std::endl;
 	*this = other;
@@ -36,12 +36,14 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
 	std::string fileName = this->target + "_shrubbery";
 	std::ofstream fout;
-	
-	if (145 < executor.getGrade()) throw GradeTooLowException();
-	if (137 < executor.getGrade()) throw GradeTooLowException();
 
-	fout.open(fileName.c_str());
-	if (fout.is_open()) {
+	this->checkExecution(executor.getGrade());
+
+	try {
+		std::cout << "form with target " << "\033[1;36m" << this->target << "\033[0m"
+			<< " is running..." << std::endl;
+		fout.open(fileName.c_str());
+		if (!fout.is_open()) throw FileOpenException();
 		fout << "          .     .  .      +     .      .          ." << std::endl;
 		fout << "     .       .      .     #       .           ." << std::endl;
 		fout << "        .      .         ###            .      .      ." << std::endl;
@@ -58,9 +60,11 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 		fout << "            .     \"      000      \"    .     ." << std::endl;
 		fout << "       .         .   .   000     .        .       ." << std::endl;
 		fout << ".. .. ..................O000O........................ ...... ..." << std::endl;
+		fout.close();
 	}
-	else throw FileOpenException();
-	fout.close();
+	catch(std::exception &e) {
+		std::cout << e.what() << std::endl;
+	}
 }
 
 const std::string &ShrubberyCreationForm::getTarget() const {return this->target;}

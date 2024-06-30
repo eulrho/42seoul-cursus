@@ -62,10 +62,18 @@ const char* AForm::CopyConstException::what() const throw()
 	return "const type is included in the member variables";
 }
 
-void AForm::execute(Bureaucrat const &executor) const 
+const char* AForm::IsSignedException::what() const throw()
 {
-	std::cout << "executor " << executor.getName() << " is at work" << std::endl;
+	return "the form was not signed";
 }
+
+void AForm::checkExecution(const int grade) const
+{
+	if (this->isSigned == false) throw IsSignedException();
+	if (this->eGrade < grade) throw GradeTooLowException();
+}
+
+void AForm::execute(Bureaucrat const &executor) const {(void)executor;}
 
 std::ostream &operator<<(std::ostream &out, const AForm &Aform)
 {

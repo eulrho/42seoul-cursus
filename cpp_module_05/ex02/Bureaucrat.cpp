@@ -77,11 +77,11 @@ void Bureaucrat::executeForm(AForm const &form)
 	try {
 		form.execute(*this);
 		std::cout << "\033[1;36m" << this->name << "\033[0m" << " executed "
-			<< "\033[1;36m" << form << "\033[0m" << std::endl;
+			<< "\033[1;36m" << form.getName() << "\033[0m" << std::endl;
 	}
 	catch(std::exception &e) {
-		std::cout << "\033[1;36m" << this->name << "\033[0m" << " couldn't execute "
-			<< "\033[1;36m" << form << "\033[0m" << " because "
+		std::cout << "\033[1;36m" << this->name << "\033[0m" << " couldn't executed "
+			<< "\033[1;36m" << form.getName() << "\033[0m" << " because "
 			<< e.what() << "." << std::endl;
 	}
 }

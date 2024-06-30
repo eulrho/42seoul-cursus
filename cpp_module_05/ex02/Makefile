@@ -3,7 +3,7 @@ NAME		= ex02
 HEADER_DIR	= .
 CPP_FLAGS	= -Wall -Wextra -Werror -std=c++98
 RM			= rm -f
-SRCSNAME	= main Bureaucrat AForm PresidentailPardonForm RobotomyRequestForm ShrubberyCreationForm
+SRCSNAME	= main Bureaucrat AForm PresidentialPardonForm RobotomyRequestForm ShrubberyCreationForm
 SRCS		= $(addsuffix .cpp, $(SRCSNAME))
 OBJS		= $(addsuffix .o, $(SRCSNAME))
 DEPS		= $(addsuffix .d, $(SRCSNAME))
