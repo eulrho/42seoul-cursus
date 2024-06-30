@@ -6,7 +6,7 @@
 
 void leaks(void)
 {
-	std::system("leaks ex02");
+	std::system("leaks ex03");
 }
 
 int main()
