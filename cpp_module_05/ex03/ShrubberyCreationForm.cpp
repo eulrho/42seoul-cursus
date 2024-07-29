@@ -39,32 +39,27 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 
 	this->checkExecution(executor.getGrade());
 
-	try {
-		std::cout << "form with target " << "\033[1;36m" << this->target << "\033[0m"
-			<< " is running..." << std::endl;
-		fout.open(fileName.c_str());
-		if (!fout.is_open()) throw FileOpenException();
-		fout << "          .     .  .      +     .      .          ." << std::endl;
-		fout << "     .       .      .     #       .           ." << std::endl;
-		fout << "        .      .         ###            .      .      ." << std::endl;
-		fout << "      .      .   \"#:. .:##\"##:. .:#\"  .      ." << std::endl;
-		fout << "          .      . \"####\"###\"####\"  ." << std::endl;
-		fout << "       .     \"#:.    .:#\"###\"#:.    .:#\"  .        .       ." << std::endl;
-		fout << "  .             \"#########\"#########\"        .        ." << std::endl;
-		fout << "        .    \"#:.  \"####\"###\"####\"  .:#\"   .       ." << std::endl;
-		fout << "     .     .  \"#######\"\"##\"##\"\"#######\"                  ." << std::endl;
-		fout << "                .\"##\"#####\"#####\"##\"           .      ." << std::endl;
-		fout << "    .   \"#:. ...  .:##\"###\"###\"##:.  ... .:#\"     ." << std::endl;
-		fout << "      .     \"#######\"##\"#####\"##\"#######\"      .     ." << std::endl;
-		fout << "    .    .     \"#####\"\"#######\"\"#####\"    .      ." << std::endl;
-		fout << "            .     \"      000      \"    .     ." << std::endl;
-		fout << "       .         .   .   000     .        .       ." << std::endl;
-		fout << ".. .. ..................O000O........................ ...... ..." << std::endl;
-		fout.close();
-	}
-	catch(std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	std::cout << "form with target " << "\033[1;36m" << this->target << "\033[0m"
+		<< " is running..." << std::endl;
+	fout.open(fileName.c_str());
+	if (!fout.is_open()) throw FileOpenException();
+	fout << "          .     .  .      +     .      .          ." << std::endl;
+	fout << "     .       .      .     #       .           ." << std::endl;
+	fout << "        .      .         ###            .      .      ." << std::endl;
+	fout << "      .      .   \"#:. .:##\"##:. .:#\"  .      ." << std::endl;
+	fout << "          .      . \"####\"###\"####\"  ." << std::endl;
+	fout << "       .     \"#:.    .:#\"###\"#:.    .:#\"  .        .       ." << std::endl;
+	fout << "  .             \"#########\"#########\"        .        ." << std::endl;
+	fout << "        .    \"#:.  \"####\"###\"####\"  .:#\"   .       ." << std::endl;
+	fout << "     .     .  \"#######\"\"##\"##\"\"#######\"                  ." << std::endl;
+	fout << "                .\"##\"#####\"#####\"##\"           .      ." << std::endl;
+	fout << "    .   \"#:. ...  .:##\"###\"###\"##:.  ... .:#\"     ." << std::endl;
+	fout << "      .     \"#######\"##\"#####\"##\"#######\"      .     ." << std::endl;
+	fout << "    .    .     \"#####\"\"#######\"\"#####\"    .      ." << std::endl;
+	fout << "            .     \"      000      \"    .     ." << std::endl;
+	fout << "       .         .   .   000     .        .       ." << std::endl;
+	fout << ".. .. ..................O000O........................ ...... ..." << std::endl;
+	fout.close();
 }
 
 const std::string &ShrubberyCreationForm::getTarget() const {return this->target;}
