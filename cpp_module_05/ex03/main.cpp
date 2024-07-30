@@ -19,61 +19,40 @@ int main()
 	std::cout << "===================== ";
 	std::cout << "\033[1;34m" << "test : ShrubberyCreationForm" << "\033[0m";
 	std::cout << " =====================" << std::endl;
-	try {
-		Form *form1;
+	Form *form1;
 
-		form1 = someRandomIntern.makeForm("shrubbery creation", "Bender");
-		std::cout << std::endl;
-		delete form1;
-	}
-	catch(std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	form1 = someRandomIntern.makeForm("shrubbery creation", "Bender");
+	std::cout << std::endl;
+	if (form1) delete form1;
 	
 	std::cout << std::endl;
 	std::cout << "===================== ";
 	std::cout << "\033[1;34m" << "test : RobotomyRequestForm" << "\033[0m";
 	std::cout << " =====================" << std::endl;
-	try {
-		Form *form2;
+	Form *form2;
 
-		form2 = someRandomIntern.makeForm("robotomy request", "Bender");
-		std::cout << std::endl;
-		delete form2;
-	}
-	catch(std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	form2 = someRandomIntern.makeForm("robotomy request", "Bender");
+	std::cout << std::endl;
+	if (form2) delete form2;
 
 	std::cout << std::endl;
 	std::cout << "===================== ";
 	std::cout << "\033[1;34m" << "test : PresidentialPardonForm" << "\033[0m";
 	std::cout << " =====================" << std::endl;
-	try {
-		Form *form3;
+	Form *form3;
 
-		form3 = someRandomIntern.makeForm("presidential pardon", "Bender");
-		std::cout << std::endl;
-		delete form3;
-	}
-	catch(std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	form3 = someRandomIntern.makeForm("presidential pardon", "Bender");
+	std::cout << std::endl;
+	if (form3) delete form3;
 
 	std::cout << std::endl;
 	std::cout << "===================== ";
 	std::cout << "\033[1;34m" << "test : Wrong case" << "\033[0m";
 	std::cout << " =====================" << std::endl;
-	try {
-		Form *form4;
+	Form *form4;
 
-		form4 = someRandomIntern.makeForm("aaa", "Bender");
-		std::cout << std::endl;
-		delete form4;
-	}
-		catch(std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	form4 = someRandomIntern.makeForm("aaa", "Bender");
 	std::cout << std::endl;
+	if (form4) delete form4;
 	return 0;
 }

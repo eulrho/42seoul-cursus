@@ -11,7 +11,7 @@ AForm::~AForm()
 	std::cout << "AForm : destructor called" << std::endl;
 }
 
-AForm::AForm(std::string name, int sGrade, int eGrade) : name(name), isSigned(false), sGrade(sGrade), eGrade(eGrade)
+AForm::AForm(const std::string &name, const int &sGrade, const int &eGrade) : name(name), isSigned(false), sGrade(sGrade), eGrade(eGrade)
 {
 	if (this->sGrade < 1) throw GradeTooHighException();
 	else if (this->sGrade > 150) throw GradeTooLowException();

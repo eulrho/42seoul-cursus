@@ -3,7 +3,7 @@
 #include <ctime>
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm() : AForm("anonymous", 72, 45)
+RobotomyRequestForm::RobotomyRequestForm() : AForm("robotomy request", 72, 45)
 {
 	std::cout << "RobotomyRequestForm : default constructor called" << std::endl;
 }
@@ -13,7 +13,7 @@ RobotomyRequestForm::~RobotomyRequestForm()
 	std::cout << "RobotomyRequestForm : destructor called" << std::endl;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("anonymous", 72, 45), target(target)
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("robotomy request", 72, 45), target(target)
 {
 	std::cout << "RobotomyRequestForm : constructor called" << std::endl;
 }

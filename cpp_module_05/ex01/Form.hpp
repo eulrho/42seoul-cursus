@@ -15,7 +15,7 @@ class Form {
 	public:
 		Form();
 		~Form();
-		Form(std::string, int, int);
+		Form(const std::string&, const int&, const int&);
 		Form(const Form&);
 		Form &operator=(const Form&);
 		const std::string &getName() const;

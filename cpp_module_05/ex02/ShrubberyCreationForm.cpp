@@ -2,7 +2,7 @@
 #include <fstream>
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm("anonymous", 145, 137)
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("shrubbery creation", 145, 137)
 {
 	std::cout << "ShrubberyCreationForm : default constructor called" << std::endl;
 	this->target = "anonymous";
@@ -13,7 +13,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 	std::cout << "ShrubberyCreationForm : destructor called" << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("anonymous", 145, 137), target(target)
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("shrubbery creation", 145, 137), target(target)
 {
 	std::cout << "ShrubberyCreationForm : constructor called" << std::endl;
 }
@@ -67,10 +67,4 @@ const std::string &ShrubberyCreationForm::getTarget() const {return this->target
 const char* ShrubberyCreationForm::FileOpenException::what() const throw()
 {
 	return "opening file failed";
-}
-
-std::ostream &operator<<(std::ostream &out, const ShrubberyCreationForm &form)
-{
-	out << form.getTarget();
-	return out;
 }

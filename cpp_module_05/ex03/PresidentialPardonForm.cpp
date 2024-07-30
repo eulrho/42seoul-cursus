@@ -1,7 +1,7 @@
 #include <iostream>
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm() : Form("anonymous", 25, 5)
+PresidentialPardonForm::PresidentialPardonForm() : Form("presidential pardon", 25, 5)
 {
 	std::cout << "PresidentialPardonForm : default constructor called" << std::endl;
 }
@@ -11,7 +11,7 @@ PresidentialPardonForm::~PresidentialPardonForm()
 	std::cout << "PresidentialPardonForm : destructor called" << std::endl;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target) : Form("anonymous", 25, 5), target(target)
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : Form("presidential pardon", 25, 5), target(target)
 {
 	std::cout << "PresidentialPardonForm : constructor called" << std::endl;
 }

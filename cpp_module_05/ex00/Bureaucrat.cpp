@@ -10,7 +10,7 @@ Bureaucrat::~Bureaucrat()
 	std::cout << "destructor called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(std::string name, int grade) : name(name)
+Bureaucrat::Bureaucrat(const std::string &name, const int &grade) : name(name)
 {
 	if (grade < 1) throw GradeTooHighException();
 	else if (grade > 150) throw GradeTooLowException();

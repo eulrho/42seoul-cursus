@@ -136,5 +136,35 @@ int main()
 		std::cout << std::endl;
 		std::cout << e.what() << std::endl;
 	}
+
+	try {
+		std::cout << std::endl;
+		std::cout << "================";
+		std::cout << "\033[1;34m" << " test : copy assign operator" << "\033[0m";
+		std::cout << " ===============" << std::endl;
+		Bureaucrat *f = new Bureaucrat("f", 150);
+		Bureaucrat *g = new Bureaucrat("g", 1);
+
+		try {
+			std::cout << std::endl;
+			std::cout << *f << std::endl;
+			std::cout << *g << std::endl;
+			*f = *g;
+			std::cout << std::endl;
+		}
+		catch(std::exception &e) {
+			std::cout << std::endl;
+			std::cout << e.what() << std::endl;
+		}
+		std::cout << *f << std::endl;
+		std::cout << std::endl;
+		delete f;
+		delete g;
+	}
+	catch(std::exception &e) {
+		std::cout << std::endl;
+		std::cout << e.what() << std::endl;
+	}
+
 	return 0;
 }

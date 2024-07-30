@@ -13,7 +13,7 @@ class ShrubberyCreationForm : public Form {
 	public:
 		ShrubberyCreationForm();
 		~ShrubberyCreationForm();
-		ShrubberyCreationForm(std::string);
+		ShrubberyCreationForm(const std::string&);
 		ShrubberyCreationForm(const ShrubberyCreationForm&);
 		ShrubberyCreationForm &operator=(const ShrubberyCreationForm&);
 		void execute(Bureaucrat const &) const;
@@ -23,7 +23,5 @@ class ShrubberyCreationForm : public Form {
 				const char* what() const throw();
 		};
 };
-
-std::ostream &operator<<(std::ostream&, const ShrubberyCreationForm&);
 
 #endif

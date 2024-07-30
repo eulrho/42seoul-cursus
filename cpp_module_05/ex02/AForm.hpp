@@ -15,7 +15,7 @@ class AForm {
 	public:
 		AForm();
 		virtual ~AForm();
-		AForm(std::string, int, int);
+		AForm(const std::string&, const int&, const int&);
 		AForm(const AForm&);
 		AForm &operator=(const AForm&);
 		const std::string &getName() const;

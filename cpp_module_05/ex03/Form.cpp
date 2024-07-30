@@ -11,7 +11,7 @@ Form::~Form()
 	std::cout << "Form : destructor called" << std::endl;
 }
 
-Form::Form(std::string name, int sGrade, int eGrade) : name(name), isSigned(false), sGrade(sGrade), eGrade(eGrade)
+Form::Form(const std::string &name, const int &sGrade, const int &eGrade) : name(name), isSigned(false), sGrade(sGrade), eGrade(eGrade)
 {
 	if (this->sGrade < 1) throw GradeTooHighException();
 	else if (this->sGrade > 150) throw GradeTooLowException();
