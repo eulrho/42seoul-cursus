@@ -11,6 +11,7 @@ int main()
 {
 	//std::atexit(leaks);
 
+	Array<int> z;
 	std::cout << "============== ";
 	std::cout << "\033[1;34m" << "constructor" << "\033[0m";
 	std::cout << " ==============" << std::endl;
@@ -64,9 +65,9 @@ int main()
 	std::cout << std::endl;
 	std::cout << "size of a = " << a.size() << std::endl;
 	std::cout << std::endl;
-	std::cout << "============== ";
-	std::cout << "\033[1;34m" << "operator exception" << "\033[0m";
-	std::cout << " ==============" << std::endl;
-	std::cout << "a[6] = " << a[6] << std::endl;
+	// std::cout << "============== ";
+	// std::cout << "\033[1;34m" << "operator exception" << "\033[0m";
+	// std::cout << " ==============" << std::endl;
+	// std::cout << "a[6] = " << a[6] << std::endl;
 	return 0;
 }

@@ -22,7 +22,7 @@ class Array {
 
 template <typename T>
 Array<T>::Array() {
-	this->array = new T();
+	this->array = new T[0]();
 	this->arraySize = 0;
 }
 
