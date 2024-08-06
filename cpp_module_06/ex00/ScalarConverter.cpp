@@ -46,7 +46,7 @@ void ScalarConverter::convert(const std::string &target)
 	// parse
 	try {
 		size_t i = 0;
-		size_t len = static_cast<int>(target.length());
+		size_t len = target.length();
 
 		while (i < len && isspace(target[i])) i++;
 		pureTarget = target.substr(i);
@@ -110,7 +110,7 @@ void ScalarConverter::convert(const std::string &target)
 				char *endPTR;
 
 				floatResult = std::strtof(pureTarget.c_str(), &endPTR);
-				if (isinf(floatResult))
+				if (std::isinf(floatResult))
 					doubleResult = std::strtod(pureTarget.c_str(), &endPTR);
 				else
 					doubleResult = static_cast<double>(floatResult);
@@ -139,7 +139,7 @@ void ScalarConverter::convert(const std::string &target)
 				|| static_cast<double>(floatResult) > static_cast<double>(INT_MAX))
 				isPossible[TYPE_INT] = false;
 			else intResult = static_cast<int>(floatResult);
-			if (isinf(floatResult))
+			if (std::isinf(floatResult))
 				doubleResult = std::strtod(pureTarget.c_str(), &endPTR);
 			else
 				doubleResult = static_cast<double>(floatResult);
