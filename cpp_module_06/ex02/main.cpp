@@ -46,21 +46,21 @@ void identify(Base &p) {
 		(void)typeA;
 		std::cout << "this type is " << "\033[1;36m" << "'A'" << "\033[0m" << std::endl;
 	}
-	catch (std::bad_cast &b) {
+	catch (std::exception &b) {
 		std::cout << b.what() << ", so this type is not 'A'" << std::endl;
 		try {
 			B &typeB = dynamic_cast<B&>(p);
 			(void)typeB;
 			std::cout << "this type is " << "\033[1;36m" << "'B'" << "\033[0m" << std::endl;
 		}
-		catch (std::bad_cast &b) {
+		catch (std::exception &b) {
 			std::cout << b.what() << ", so this type is not 'B'" << std::endl;
 			try {
 				C &typeC = dynamic_cast<C&>(p);
 				(void)typeC;
 				std::cout << "this type is " << "\033[1;36m" << "'C'" << "\033[0m" << std::endl;
 			}
-			catch (std::bad_cast &b) {
+			catch (std::exception &b) {
 				std::cout << b.what() << ", so this type is not 'C'" << std::endl;
 			}
 		}
