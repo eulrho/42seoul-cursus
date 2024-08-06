@@ -45,8 +45,8 @@ void ScalarConverter::convert(const std::string &target)
 
 	// parse
 	try {
-		size_t i = 0;
-		size_t len = target.length();
+		std::size_t i = 0;
+		std::size_t len = target.length();
 
 		while (i < len && isspace(target[i])) i++;
 		pureTarget = target.substr(i);
