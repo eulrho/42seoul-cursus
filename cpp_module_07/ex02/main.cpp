@@ -10,8 +10,6 @@ void leaks()
 int main()
 {
 	//std::atexit(leaks);
-
-	Array<int> z;
 	std::cout << "============== ";
 	std::cout << "\033[1;34m" << "constructor" << "\033[0m";
 	std::cout << " ==============" << std::endl;
