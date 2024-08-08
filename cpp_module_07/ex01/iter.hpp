@@ -6,6 +6,7 @@
 template <typename T, typename L, typename F, typename W>
 void iter(T *address, L length, F (*f)(W))
 {
+	if (!address || !f) return ;
 	for (L i = 0; i<length; i++) {
 		f(address[i]);
 	}

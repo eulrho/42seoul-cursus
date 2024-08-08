@@ -16,6 +16,6 @@ int main()
 	std::cout << "\033[1;34m" << "test : print" << "\033[0m";
 	std::cout << " ==============" << std::endl;
 	::iter(intArray, 4, ::print<int>);
-	::iter(charArray, 4, ::print<char>);
+	::iter(charArray, 4, ::print<const char>);
 	return 0;
 }
