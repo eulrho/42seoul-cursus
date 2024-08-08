@@ -48,12 +48,14 @@ void ScalarConverter::convert(const std::string &target)
 		std::size_t i = 0;
 		std::size_t len = target.length();
 
-		while (i < len && isspace(target[i])) i++;
+		if (len > 1) {
+			while (i < len && isspace(target[i])) i++;
+		}
 		pureTarget = target.substr(i);
 
 		if (pureTarget.empty()) throw std::string("impossible");
 
-		if (pureTarget == "nan" || pureTarget == "+inf" || pureTarget == "-inf" || pureTarget == "inf")
+		if (pureTarget == "nan" || pureTarget == "+inf" || pureTarget == "-inf")
 		{
 			double tmp = 0.0;
 
@@ -67,7 +69,7 @@ void ScalarConverter::convert(const std::string &target)
 			isPossible[TYPE_CHAR] = false;
 			isPossible[TYPE_INT] = false;
 		}
-		else if (pureTarget == "nanf" || pureTarget == "+inff" || pureTarget == "-inff" || pureTarget == "inff")
+		else if (pureTarget == "nanf" || pureTarget == "+inff" || pureTarget == "-inff")
 		{
 			float tmp = 0.0f;
 
@@ -75,9 +77,9 @@ void ScalarConverter::convert(const std::string &target)
 				floatResult = tmp / 0.0;
 			else if (pureTarget[0] == '-')
 				floatResult = -FLT_MAX * 100.0f;
-			else
+			else 
 				floatResult = FLT_MAX * 100.0f;
-			doubleResult = static_cast<float>(floatResult);
+			doubleResult = static_cast<double>(floatResult);
 			isPossible[TYPE_CHAR] = false;
 			isPossible[TYPE_INT] = false;
 		}
@@ -93,7 +95,6 @@ void ScalarConverter::convert(const std::string &target)
 			if (i < len && (pureTarget[i] == '-' || pureTarget[i] == '+'))
 				i++;
 
-			if (i == len) throw std::string("impossible");
 			while (i < len) {
 				if (!std::isdigit(pureTarget[i]))
 					throw std::string("impossible");
@@ -191,7 +192,7 @@ void ScalarConverter::convert(const std::string &target)
 	catch(std::string &str) {
 		std::cout << "char: " << str << std::endl;
 		std::cout << "int: " << str << std::endl;
-		std::cout << "float: nanf" << std::endl;
-		std::cout << "double: nan" << std::endl;
+		std::cout << "float: " << str << std::endl;
+		std::cout << "double: " << str << std::endl;
 	}
 }
