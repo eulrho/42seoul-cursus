@@ -15,8 +15,8 @@ class Array {
 		Array(unsigned int n);
 		Array(const Array&);
 		Array &operator=(const Array&);
-		T &operator[](ssize_t);
-		const T &operator[](ssize_t) const;
+		T &operator[](std::size_t);
+		const T &operator[](std::size_t) const;
 		unsigned int size() const;
 };
 
@@ -68,17 +68,17 @@ unsigned int Array<T>::size() const
 }
 
 template <typename T>
-T &Array<T>::operator[](ssize_t idx)
+T &Array<T>::operator[](std::size_t idx)
 {
-	if (idx < 0 || idx >= this->size())
+	if (idx >= static_cast<std::size_t>(this->size()))
 		throw std::out_of_range("the idx is out of range");
 	return this->array[idx];
 }
 
 template <typename T>
-const T &Array<T>::operator[](ssize_t idx) const
+const T &Array<T>::operator[](std::size_t idx) const
 {
-	if (idx < 0 || idx >= this->size())
+	if (idx >= static_cast<std::size_t>(this->size()))
 		throw std::out_of_range("the idx is out of range");
 	return this->array[idx];
 }
