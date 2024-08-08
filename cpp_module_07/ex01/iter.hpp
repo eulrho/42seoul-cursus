@@ -3,10 +3,18 @@
 
 # include <iostream>
 
-template <typename T>
-void iter(T *address, size_t length, void (*f)(T&))
+template <typename T, typename L>
+void iter(T *address, L length, void (*f)(T&))
 {
-	for (size_t i = 0; i<length; i++) {
+	for (L i = 0; i<length; i++) {
+		f(address[i]);
+	}
+}
+
+template <typename T, typename L>
+void iter(T *address, L length, void (*f)(const T&))
+{
+	for (L i = 0; i<length; i++) {
 		f(address[i]);
 	}
 }
