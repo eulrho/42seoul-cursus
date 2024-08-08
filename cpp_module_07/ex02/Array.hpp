@@ -8,16 +8,16 @@ template <typename T>
 class Array {
 	private:
 		T *array;
-		std::size_t arraySize;
+		unsigned int arraySize;
 	public:
 		Array();
 		~Array();
 		Array(unsigned int n);
 		Array(const Array&);
 		Array &operator=(const Array&);
-		T &operator[](std::size_t);
-		const T &operator[](std::size_t) const;
-		std::size_t size() const;
+		T &operator[](ssize_t);
+		const T &operator[](ssize_t) const;
+		unsigned int size() const;
 };
 
 template <typename T>
@@ -43,7 +43,7 @@ Array<T>::Array(const Array<T> &other)
 	this->arraySize = other.size();
 	this->array = new T[this->arraySize];
 		
-	for (size_t i=0; i<this->arraySize; i++)
+	for (unsigned int i=0; i<this->arraySize; i++)
 		this->array[i] = other.array[i];
 }
 
@@ -55,29 +55,31 @@ Array<T> &Array<T>::operator=(const Array<T> &other)
 		this->arraySize = other.size();
 		this->array = new T[this->arraySize];
 		
-		for (size_t i=0; i<this->arraySize; i++)
+		for (unsigned int i=0; i<this->arraySize; i++)
 			this->array[i] = other.array[i];
 	}
 	return *this;
 }
 
 template <typename T>
-std::size_t Array<T>::size() const
+unsigned int Array<T>::size() const
 {
 	return this->arraySize;
 }
 
 template <typename T>
-T &Array<T>::operator[](std::size_t idx)
+T &Array<T>::operator[](ssize_t idx)
 {
-	if (idx >= this->size()) throw std::out_of_range("the idx is out of range");
+	if (idx < 0 || idx >= this->size())
+		throw std::out_of_range("the idx is out of range");
 	return this->array[idx];
 }
 
 template <typename T>
-const T &Array<T>::operator[](std::size_t idx) const
+const T &Array<T>::operator[](ssize_t idx) const
 {
-	if (idx >= this->size()) throw std::out_of_range("the idx is out of range");
+	if (idx < 0 || idx >= this->size())
+		throw std::out_of_range("the idx is out of range");
 	return this->array[idx];
 }
 
