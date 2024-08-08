@@ -57,10 +57,11 @@ void ScalarConverter::convert(const std::string &target)
 
 		if (pureTarget == "nan" || pureTarget == "+inf" || pureTarget == "-inf")
 		{
-			double tmp = 0.0;
-
 			if (pureTarget == "nan")
-				doubleResult = tmp / 0.0;
+			{
+				doubleResult = (3.0 - 3.0) / 0.0;
+				doubleResult = std::fabs(doubleResult);
+			}
 			else if (pureTarget[0] == '-')
 				doubleResult = -DBL_MAX * 100.0;
 			else
@@ -71,10 +72,11 @@ void ScalarConverter::convert(const std::string &target)
 		}
 		else if (pureTarget == "nanf" || pureTarget == "+inff" || pureTarget == "-inff")
 		{
-			float tmp = 0.0f;
-
 			if (pureTarget == "nanf")
-				floatResult = tmp / 0.0;
+			{
+				floatResult = (3.0f - 3.0f) / 0.0f;
+				floatResult = std::fabs(floatResult);
+			}
 			else if (pureTarget[0] == '-')
 				floatResult = -FLT_MAX * 100.0f;
 			else 
