@@ -12,7 +12,7 @@ void iter(T *address, L length, F (*f)(W))
 }
 
 template <typename T>
-void print(T a)
+void print(T &a)
 {
 	std::cout << a << std::endl;
 }
