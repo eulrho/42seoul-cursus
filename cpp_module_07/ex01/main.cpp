@@ -17,5 +17,6 @@ int main()
 	std::cout << " ==============" << std::endl;
 	::iter(intArray, 4, ::print<int>);
 	::iter(charArray, 4, ::print<const char>);
+	::iter(charArray, 4, ::print<char>);
 	return 0;
 }
