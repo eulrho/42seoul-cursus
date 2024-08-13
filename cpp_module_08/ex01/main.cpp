@@ -68,8 +68,8 @@ int main()
 		std::cout << e.what() << std::endl;
 	}
 	try {
-		sp4.addNumberRange(10000);
-		//sp4.addNumberRange(10);
+		//sp4.addNumberRange(10000);
+		sp4.addNumberRange(10);
 		std::cout << sp4.shortestSpan() << std::endl;
 		std::cout << sp4.longestSpan() << std::endl;
 	}

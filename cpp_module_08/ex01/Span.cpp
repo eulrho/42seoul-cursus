@@ -30,7 +30,6 @@ void Span::addNumber(const int &number)
 	if (this->v.size() == this->n)
 		throw ExtraSpaceException();
 	this->v.push_back(number);
-	sort(this->v.begin(), this->v.end());
 }
 
 void Span::addNumberRange(const unsigned int &range)
@@ -45,22 +44,24 @@ void Span::addNumberRange(const unsigned int &range)
 			this->v.push_back(std::rand());
 		else this->v.push_back(std::rand() * -1);
 	}
-	sort(this->v.begin(), this->v.end());
 	// std::cout << "elements" << std::endl;
 	// for (unsigned int i = 0; i < 10; i++) {
 	// 	std::cout << this->v[i] << ' ';
 	// }
-	// std::cout << std::endl;
+	std::cout << std::endl;
 }
 
 unsigned long Span::shortestSpan()
 {
 	if (this->v.size() <= 1) throw TooFewException();
 
-	unsigned long res = static_cast<unsigned long>(this->v[1]) - this->v[0];
+	std::vector<int> sorted = std::vector<int> (this->v);
+	sort(sorted.begin(), sorted.end());
+	unsigned long res = static_cast<unsigned long>(sorted[1]) - sorted[0];
 
-	for (unsigned int i = 2; i < this->v.size(); i++) {
-		unsigned long tmp = static_cast<unsigned long>(this->v[i]) - this->v[i - 1];
+	for (unsigned int i = 2; i < sorted.size(); i++) {
+		unsigned long tmp = static_cast<unsigned long>(sorted[i]) - sorted[i - 1];
+		//std::cout << sorted[i] << " - " << sorted[i - 1] << " = " << tmp << std::endl; 
 		res = res > tmp ? tmp : res;
 	}
 	return res;
@@ -69,8 +70,11 @@ unsigned long Span::shortestSpan()
 unsigned long Span::longestSpan()
 {
 	if (this->v.size() <= 1) throw TooFewException();
-	//std::cout << this->v.back()  << ' ' << this->v.front() << '\n';
-	return static_cast<unsigned long>(this->v.back()) - this->v.front();
+
+	std::vector<int> sorted = std::vector<int> (this->v);
+	sort(sorted.begin(), sorted.end());
+	//std::cout << sorted.back()  << ' ' << sorted.front() << '\n';
+	return static_cast<unsigned long>(sorted.back()) - sorted.front();
 }
 
 const char* Span::ExtraSpaceException::what() const throw()
