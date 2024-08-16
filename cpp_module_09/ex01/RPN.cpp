@@ -27,13 +27,13 @@ void RPN::postfix(const std::string &input)
 	std::size_t idx = 0, len = input.length(), start;
 
 	while (idx < len) {
-		while (idx < len && isspace(input[idx])) idx++;
+		while (idx < len && std::isspace(input[idx])) idx++;
 		if (idx == len) break ;
 
 		start = idx;
-		while (idx < len && !isspace(input[idx])) idx++;
+		while (idx < len && !std::isspace(input[idx])) idx++;
 
-		if (idx - start == 1 && (!isdigit(input[start]))) {
+		if (idx - start == 1 && (!std::isdigit(input[start]))) {
 			switch (input[start]) {
 				case '+':
 					this->add();
