@@ -56,7 +56,7 @@ unsigned long Span::shortestSpan()
 	if (this->v.size() <= 1) throw TooFewException();
 
 	std::vector<int> sorted = std::vector<int> (this->v);
-	sort(sorted.begin(), sorted.end());
+	std::sort(sorted.begin(), sorted.end());
 	unsigned long res = static_cast<unsigned long>(sorted[1]) - sorted[0];
 
 	for (unsigned int i = 2; i < sorted.size(); i++) {
