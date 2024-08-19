@@ -6,7 +6,7 @@
 
 class RPN {
 	private:
-		std::stack<float> stack;
+		std::stack<int> stack;
 		void add();
 		void sub();
 		void mult();

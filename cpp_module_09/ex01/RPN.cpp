@@ -2,6 +2,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <cctype>
+#include <climits>
 #include "RPN.hpp"
 
 RPN::RPN() {}
@@ -16,14 +17,14 @@ RPN::RPN(const RPN &other)
 RPN &RPN::operator=(const RPN &other)
 {
 	if (this != &other) {
-		this->stack = std::stack<float>(other.stack);
+		this->stack = std::stack<int>(other.stack);
 	}
 	return *this;
 }
 
 void RPN::postfix(const std::string &input)
 {
-	float tmp;
+	int tmp;
 	std::size_t idx = 0, len = input.length(), start;
 
 	while (idx < len) {
@@ -53,9 +54,15 @@ void RPN::postfix(const std::string &input)
 		}
 		else {
 			std::stringstream stream;
+
 			stream.str(input.substr(start, idx - start));
 			stream >> tmp;
-			if (stream.fail() || tmp < 0.0 || tmp > 10.0)
+			if (stream.fail() || tmp > 10)
+				throw std::invalid_argument(std::string("Error"));
+			
+			std::string extra;
+			stream >> extra;
+			if (!extra.empty())
 				throw std::invalid_argument(std::string("Error"));
 			this->stack.push(tmp);
 		}
@@ -70,10 +77,13 @@ void RPN::add()
 	if (this->stack.size() < 2)
 		throw std::invalid_argument(std::string("Error"));
 	
-	float res, tmp = this->stack.top();
+	long long res;
+	int tmp = this->stack.top();
 	
 	this->stack.pop();
-	res = this->stack.top() + tmp;
+	res = static_cast<long long>(this->stack.top()) - tmp;
+	if (res < INT_MIN)
+		throw std::invalid_argument(std::string("Error"));
 	this->stack.pop();
 	this->stack.push(res);
 }
@@ -82,10 +92,13 @@ void RPN::sub()
 	if (this->stack.size() < 2)
 		throw std::invalid_argument(std::string("Error"));
 	
-	float res, tmp = this->stack.top();
+	long long res;
+	int tmp = this->stack.top();
 	
 	this->stack.pop();
-	res = this->stack.top() - tmp;
+	res = static_cast<long long>(this->stack.top()) - tmp;
+	if (res < INT_MIN || res > INT_MAX)
+		throw std::invalid_argument(std::string("Error"));
 	this->stack.pop();
 	this->stack.push(res);
 }
@@ -95,10 +108,13 @@ void RPN::mult()
 	if (this->stack.size() < 2)
 		throw std::invalid_argument(std::string("Error"));
 
-	float res, tmp = this->stack.top();
+	long long res;
+	int tmp = this->stack.top();
 	
 	this->stack.pop();
-	res = this->stack.top() * tmp;
+	res = static_cast<long long>(this->stack.top()) * tmp;
+	if (res < INT_MIN || res > INT_MAX)
+		throw std::invalid_argument(std::string("Error"));
 	this->stack.pop();
 	this->stack.push(res);
 }
@@ -108,10 +124,12 @@ void RPN::div()
 	if (this->stack.size() < 2)
 		throw std::invalid_argument(std::string("Error"));
 
-	float res, tmp = this->stack.top();
+	long long res;
+	int tmp = this->stack.top();
 	
 	this->stack.pop();
-	res = this->stack.top() / tmp;
+	if (tmp == 0) throw std::invalid_argument(std::string("Error"));
+	res = static_cast<long long>(this->stack.top()) / tmp;
 	this->stack.pop();
 	this->stack.push(res);
 }
