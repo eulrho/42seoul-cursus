@@ -70,7 +70,7 @@ void BitcoinExchange::printAmountOfBitcoin(const std::string &fileName)
 {
 	std::ifstream f;
 
-	f.open(fileName);
+	f.open(fileName.c_str());
 	if (!f.is_open()) throw FileOpenException();
 
 	std::string line;
