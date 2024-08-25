@@ -15,8 +15,8 @@ PmergeMe::PmergeMe(const PmergeMe &other)
 PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 {
 	if (this != &other) {
-		this->sortedVector = std::vector<int>(other.sortedVector);
-		this->sortedList = std::list<int>(other.sortedList);
+		this->vector = std::vector<int>(other.vector);
+		this->list = std::list<int>(other.list);
 		this->timeOfVector = other.timeOfVector;
 		this->timeOfList = other.timeOfList;
 	}
@@ -26,12 +26,17 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 void PmergeMe::fordJohnson(int argc, char **argv)
 {
 	insertData(argc, argv);
+
 	std::cout << "Before:	";
-	printData();
+	printData(this->vector);
+
 	this->timeOfVector = sortVector();
 	this->timeOfList = sortList();
+
 	std::cout << "After:	";
-	printData();
+	printData(this->vector);
+	// printData(this->list);
+
 	std::cout << "Time to process a range of	" << argc - 1
 		<< " elements with std::vector :	" << this->timeOfVector << " ms" << std::endl;
 	std::cout << "Time to process a range of	" << argc - 1
@@ -54,33 +59,146 @@ void PmergeMe::insertData(int argc, char **argv)
 		stream >> tmp;
 		if (!tmp.empty())
 			throw std::invalid_argument(std::string("Error"));
-		if (find(this->sortedVector.begin(), this->sortedVector.end(), number) != this->sortedVector.end())
+		if (find(this->vector.begin(), this->vector.end(), number) != this->vector.end())
 			throw std::invalid_argument(std::string("Error"));
-		this->sortedVector.push_back(number);
-		this->sortedList.push_back(number);
+		this->vector.push_back(number);
+		this->list.push_back(number);
 		idx++;
 	}
-}
-
-void PmergeMe::printData()
-{
-	int size = static_cast<int>(this->sortedVector.size());
-
-	for (int idx = 0; idx < size; idx++)
-		std::cout << this->sortedVector[idx] << ' ';
-	std::cout << std::endl;
 }
 
 double PmergeMe::sortVector()
 {
 	std::clock_t startVector = std::clock();
-	
+
+	std::vector<int> sortedVector;
+	int isOdd = this->vector.size() % 2 == 1;
+	int size = this->vector.size() - isOdd;
+
+	std::vector<NumberPair> vectorPair, bottom;
+
+	for (int i=0; i<size; i+=2) {
+		NumberPair mainChain, subChain;
+
+		if (this->vector[i] > this->vector[i + 1]) {
+			mainChain.number = this->vector[i];
+			subChain.number = this->vector[i + 1];
+			mainChain.pair.push_back(subChain);
+		}
+		else {
+			mainChain.number = this->vector[i + 1];
+			subChain.number = this->vector[i];
+			mainChain.pair.push_back(subChain);
+		}
+		vectorPair.push_back(mainChain);
+	}
+
+	if (this->vector.size() >= 2)
+		recursiveSortVector(vectorPair);
+	size = static_cast<int>(vectorPair.size());
+	for (int i=0; i<size; i++) {
+		bottom.push_back(*(vectorPair[i].pair.end() - 1));
+		vectorPair[i].pair.pop_back();
+	}
+	if (isOdd) {
+		NumberPair tmp;
+
+		tmp.number = *(this->vector.end() - 1);
+		bottom.push_back(tmp);
+	};
+
+	std::vector<NumberPair> tmp = topBottomSortVector(vectorPair, bottom);
+
+	this->vector = extractVector(tmp);
 	return static_cast<double>(std::clock()) - startVector;
+}
+
+void PmergeMe::recursiveSortVector(std::vector<NumberPair> &vectorPair)
+{
+	int isOdd = vectorPair.size() % 2 == 1;
+	int size = vectorPair.size() - isOdd;
+
+	std::vector<NumberPair> newVectorPair, bottom;
+
+	for (int i=0; i<size; i+=2) {
+		if (vectorPair[i].number > vectorPair[i + 1].number) {
+			newVectorPair.push_back(vectorPair[i]);
+			newVectorPair[i / 2].pair.push_back(vectorPair[i + 1]);
+		}
+		else {
+			newVectorPair.push_back(vectorPair[i + 1]);
+			newVectorPair[i / 2].pair.push_back(vectorPair[i]);
+		}
+	}
+
+	if (newVectorPair.size() >= 2)
+		recursiveSortVector(newVectorPair);
+
+	size = static_cast<int>(newVectorPair.size());
+	for (int i=0; i<size; i++)
+	{
+		bottom.push_back(*(newVectorPair[i].pair.end() - 1));
+		newVectorPair[i].pair.pop_back();
+	}
+	if (isOdd) bottom.push_back(*(vectorPair.end() - 1));
+
+	vectorPair = topBottomSortVector(newVectorPair, bottom);
+}
+
+std::vector<PmergeMe::NumberPair> PmergeMe::topBottomSortVector(std::vector<NumberPair> &top, std::vector<NumberPair> &bottom)
+{
+	std::vector<NumberPair> res;
+	std::vector<int> jacobsthalNumber;
+	int n = 2, idx=0, size = static_cast<int>(bottom.size());
+
+	res = top;
+
+	jacobsthalNumber.push_back(0);
+	jacobsthalNumber.push_back(1);
+
+	while (idx < size) {
+		insertNewJacobsthalNumber(jacobsthalNumber, n);
+		
+		int start = jacobsthalNumber[n] - 1, end = idx;
+		vectorPairIter iter;
+
+		if (start >= size) start = size - 1;
+		idx = start + 1;
+		while (start >= end) {
+			iter = searchPosition(res.begin(), res.end(), bottom[start], compare);
+			res.insert(iter, bottom[start]);
+			start--;
+		}
+		n++;
+	}
+	return res;
+}
+
+bool PmergeMe::compare(const NumberPair &a, const NumberPair &b)
+{
+	return a.number < b.number;
+}
+
+std::vector<int> PmergeMe::extractVector(std::vector<NumberPair> &vectorPair)
+{
+	std::vector<int> res;
+	vectorPairIter iter = vectorPair.begin();
+
+	for (; iter != vectorPair.end(); iter++)
+		res.push_back(iter->number);
+	return res;
+}
+
+void PmergeMe::insertNewJacobsthalNumber(std::vector<int> &jacobsthalNumber, int n)
+{
+	jacobsthalNumber.push_back(jacobsthalNumber[n - 1] + 2 * jacobsthalNumber[n - 2]);
 }
 
 double PmergeMe::sortList()
 {
 	std::clock_t startList = std::clock();
+	//std::list<int> sortedList;
 
+	//this->list = sortedList;
 	return static_cast<double>(std::clock()) - startList;
 }
