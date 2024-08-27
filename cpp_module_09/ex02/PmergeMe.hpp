@@ -10,37 +10,36 @@
 
 class PmergeMe {
 	private:
-		struct NumberPair {
+		struct NumberPairVector {
 			int number;
-			std::vector<NumberPair> pair;
+			std::vector<NumberPairVector> pair;
 		};
-		std::vector<int> vector;
-		std::list<int> list;
+		struct NumberPairList {
+			int number;
+			std::list<NumberPairList> pair;
+		};
+		std::vector<NumberPairVector> vector;
+		std::list<NumberPairList> list;
 		double timeOfVector;
 		double timeOfList;
 		void insertData(int argc, char **argv);
 		double sortVector();
 		double sortList();
-		typedef std::vector<NumberPair>::iterator vectorPairIter;
+		typedef std::vector<NumberPairVector>::iterator vectorPairIter;
 		typedef std::list<int>::iterator listIter;
-		void recursiveSortVector(std::vector<NumberPair> &);
-		std::vector<NumberPair> topBottomSortVector(std::vector<NumberPair> &, std::vector<NumberPair> &);
-		std::vector<int> extractVector(std::vector<NumberPair>&);
+		void recursiveSortVector(std::vector<NumberPairVector> &);
+		std::vector<NumberPairVector> topBottomSortVector(std::vector<NumberPairVector> &, std::vector<NumberPairVector> &);
 		void insertNewJacobsthalNumber(std::vector<int> &, int);
-		static bool compare(const NumberPair&, const NumberPair&);
+		static bool compare(const NumberPairVector&, const NumberPairVector&);
+		vectorPairIter findVector(vectorPairIter, vectorPairIter, const NumberPairVector&);
 		template <typename Container>
 		void printData(Container &container)
 		{
 			typename Container::iterator iter = container.begin();
 
 			for (; iter != container.end(); iter++)
-				std::cout << *iter << ' ';
+				std::cout << iter->number << ' ';
 			std::cout << std::endl;
-		}
-		template <typename ContainerIter, typename ValueType, typename Compare>
-		ContainerIter searchPosition(ContainerIter left, ContainerIter right, const ValueType &target, Compare comp)
-		{
-			return std::upper_bound(left, right, target, comp);
 		}
 	public:
 		PmergeMe();

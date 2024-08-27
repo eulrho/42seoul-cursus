@@ -15,8 +15,8 @@ PmergeMe::PmergeMe(const PmergeMe &other)
 PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 {
 	if (this != &other) {
-		this->vector = std::vector<int>(other.vector);
-		this->list = std::list<int>(other.list);
+		this->vector = std::vector<NumberPairVector>(other.vector);
+		this->list = std::list<NumberPairList>(other.list);
 		this->timeOfVector = other.timeOfVector;
 		this->timeOfList = other.timeOfList;
 	}
@@ -59,36 +59,50 @@ void PmergeMe::insertData(int argc, char **argv)
 		stream >> tmp;
 		if (!tmp.empty())
 			throw std::invalid_argument(std::string("Error"));
-		if (find(this->vector.begin(), this->vector.end(), number) != this->vector.end())
+
+		NumberPairVector v;
+		NumberPairList l;
+
+		v.number = number;
+		l.number = number;
+		if (findVector(this->vector.begin(), this->vector.end(), v) != this->vector.end())
 			throw std::invalid_argument(std::string("Error"));
-		this->vector.push_back(number);
-		this->list.push_back(number);
+		this->vector.push_back(v);
+		this->list.push_back(l);
 		idx++;
 	}
+}
+
+PmergeMe::vectorPairIter PmergeMe::findVector(vectorPairIter begin, vectorPairIter end, const NumberPairVector &target)
+{
+	vectorPairIter iter = begin;
+
+	for (; iter != end; iter++) {
+		if (iter->number == target.number)
+			break ;
+	}
+	return iter;
 }
 
 double PmergeMe::sortVector()
 {
 	std::clock_t startVector = std::clock();
 
-	std::vector<int> sortedVector;
 	int isOdd = this->vector.size() % 2 == 1;
 	int size = this->vector.size() - isOdd;
 
-	std::vector<NumberPair> vectorPair, bottom;
+	std::vector<NumberPairVector> vectorPair, bottom;
 
 	for (int i=0; i<size; i+=2) {
-		NumberPair mainChain, subChain;
+		NumberPairVector mainChain;
 
-		if (this->vector[i] > this->vector[i + 1]) {
-			mainChain.number = this->vector[i];
-			subChain.number = this->vector[i + 1];
-			mainChain.pair.push_back(subChain);
+		if (this->vector[i].number > this->vector[i + 1].number) {
+			mainChain = this->vector[i];
+			mainChain.pair.push_back(this->vector[i + 1]);
 		}
 		else {
-			mainChain.number = this->vector[i + 1];
-			subChain.number = this->vector[i];
-			mainChain.pair.push_back(subChain);
+			mainChain = this->vector[i + 1];
+			mainChain.pair.push_back(this->vector[i]);
 		}
 		vectorPair.push_back(mainChain);
 	}
@@ -100,25 +114,19 @@ double PmergeMe::sortVector()
 		bottom.push_back(*(vectorPair[i].pair.end() - 1));
 		vectorPair[i].pair.pop_back();
 	}
-	if (isOdd) {
-		NumberPair tmp;
+	if (isOdd)
+		bottom.push_back(*(this->vector.end() - 1));
 
-		tmp.number = *(this->vector.end() - 1);
-		bottom.push_back(tmp);
-	};
-
-	std::vector<NumberPair> tmp = topBottomSortVector(vectorPair, bottom);
-
-	this->vector = extractVector(tmp);
+	this->vector = topBottomSortVector(vectorPair, bottom);
 	return static_cast<double>(std::clock()) - startVector;
 }
 
-void PmergeMe::recursiveSortVector(std::vector<NumberPair> &vectorPair)
+void PmergeMe::recursiveSortVector(std::vector<NumberPairVector> &vectorPair)
 {
 	int isOdd = vectorPair.size() % 2 == 1;
 	int size = vectorPair.size() - isOdd;
 
-	std::vector<NumberPair> newVectorPair, bottom;
+	std::vector<NumberPairVector> newVectorPair, bottom;
 
 	for (int i=0; i<size; i+=2) {
 		if (vectorPair[i].number > vectorPair[i + 1].number) {
@@ -145,9 +153,9 @@ void PmergeMe::recursiveSortVector(std::vector<NumberPair> &vectorPair)
 	vectorPair = topBottomSortVector(newVectorPair, bottom);
 }
 
-std::vector<PmergeMe::NumberPair> PmergeMe::topBottomSortVector(std::vector<NumberPair> &top, std::vector<NumberPair> &bottom)
+std::vector<PmergeMe::NumberPairVector> PmergeMe::topBottomSortVector(std::vector<NumberPairVector> &top, std::vector<NumberPairVector> &bottom)
 {
-	std::vector<NumberPair> res;
+	std::vector<NumberPairVector> res;
 	std::vector<int> jacobsthalNumber;
 	int n = 2, idx=0, size = static_cast<int>(bottom.size());
 
@@ -165,7 +173,7 @@ std::vector<PmergeMe::NumberPair> PmergeMe::topBottomSortVector(std::vector<Numb
 		if (start >= size) start = size - 1;
 		idx = start + 1;
 		while (start >= end) {
-			iter = searchPosition(res.begin(), res.end(), bottom[start], compare);
+			iter = std::upper_bound(res.begin(), res.end(), bottom[start], compare);
 			res.insert(iter, bottom[start]);
 			start--;
 		}
@@ -174,20 +182,11 @@ std::vector<PmergeMe::NumberPair> PmergeMe::topBottomSortVector(std::vector<Numb
 	return res;
 }
 
-bool PmergeMe::compare(const NumberPair &a, const NumberPair &b)
+bool PmergeMe::compare(const NumberPairVector &a, const NumberPairVector &b)
 {
 	return a.number < b.number;
 }
 
-std::vector<int> PmergeMe::extractVector(std::vector<NumberPair> &vectorPair)
-{
-	std::vector<int> res;
-	vectorPairIter iter = vectorPair.begin();
-
-	for (; iter != vectorPair.end(); iter++)
-		res.push_back(iter->number);
-	return res;
-}
 
 void PmergeMe::insertNewJacobsthalNumber(std::vector<int> &jacobsthalNumber, int n)
 {
