@@ -34,7 +34,6 @@ class PmergeMe {
 		typedef std::vector<NumberPairVector>::iterator vectorPairIter;
 		void recursiveSortVector(std::vector<NumberPairVector> &);
 		std::vector<NumberPairVector> topBottomSortVector(std::vector<NumberPairVector> &, std::vector<NumberPairVector> &);
-		vectorPairIter findVector(vectorPairIter, vectorPairIter, const NumberPairVector&);
 		void insertNewJacobsthalNumberIntoVector(std::vector<int> &, int);
 		static bool compareVector(const NumberPairVector &a, const NumberPairVector &b);
 

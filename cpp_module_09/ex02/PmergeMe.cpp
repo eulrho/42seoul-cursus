@@ -35,7 +35,7 @@ void PmergeMe::fordJohnson(int argc, char **argv)
 
 	std::cout << "After:	";
 	printData(this->vector);
-	//printData(this->list);
+	printData(this->list);
 
 	std::cout << "Time to process a range of	" << argc - 1
 		<< " elements with std::vector :	" << this->timeOfVector << " ms" << std::endl;
@@ -71,23 +71,12 @@ void PmergeMe::insertData(int argc, char **argv)
 	}
 }
 
-PmergeMe::vectorPairIter PmergeMe::findVector(vectorPairIter begin, vectorPairIter end, const NumberPairVector &target)
-{
-	vectorPairIter iter = begin;
-
-	for (; iter != end; iter++) {
-		if (iter->number == target.number)
-			break ;
-	}
-	return iter;
-}
-
 double PmergeMe::sortVector()
 {
 	std::clock_t startVector = std::clock();
 
 	recursiveSortVector(this->vector);
-	return static_cast<double>(std::clock()) - startVector;
+	return std::clock() - startVector;
 }
 
 void PmergeMe::recursiveSortVector(std::vector<NumberPairVector> &vectorPair)
@@ -126,7 +115,7 @@ std::vector<PmergeMe::NumberPairVector> PmergeMe::topBottomSortVector(std::vecto
 {
 	std::vector<NumberPairVector> res;
 	std::vector<int> jacobsthalNumber;
-	int n = 2, idx=0, size = static_cast<int>(bottom.size());
+	int n = 2, idx = 0, size = static_cast<int>(bottom.size());
 
 	res = top;
 
@@ -137,16 +126,23 @@ std::vector<PmergeMe::NumberPairVector> PmergeMe::topBottomSortVector(std::vecto
 		insertNewJacobsthalNumberIntoVector(jacobsthalNumber, n);
 
 		int start = jacobsthalNumber[n] - 1, end = idx;
-		vectorPairIter position;
-
 		if (start >= size) start = size - 1;
 		idx = start + 1;
+		n++;
+
+		if (start == 0) {
+			res.insert(res.begin(), bottom[0]);
+			continue ;
+		}
+
+		vectorPairIter resEnd = res.begin() + end * 2 + (start - end);
 		while (start >= end) {
-			position = std::upper_bound(res.begin(), res.end(), bottom[start], compareVector);
+			vectorPairIter position = std::upper_bound(res.begin(), res.end(), bottom[start], compareVector);
 			res.insert(position, bottom[start]);
+			if (position == resEnd)
+				resEnd--;
 			start--;
 		}
-		n++;
 	}
 	return res;
 }
@@ -166,7 +162,7 @@ double PmergeMe::sortList()
 	std::clock_t startList = std::clock();
 
 	recursiveSortList(this->list);
-	return static_cast<double>(std::clock()) - startList;
+	return std::clock() - startList;
 }
 
 void PmergeMe::recursiveSortList(std::list<NumberPairList> &listPair)
@@ -208,32 +204,39 @@ std::list<PmergeMe::NumberPairList> PmergeMe::topBottomSortList(std::list<Number
 {
 	std::list<NumberPairList> res;
 	std::list<int> jacobsthalNumber;
-	int n = 2, size = static_cast<int>(bottom.size());
+	int n = 2, idx = 0, size = static_cast<int>(bottom.size());
 
 	res = top;
 
 	jacobsthalNumber.push_back(0);
 	jacobsthalNumber.push_back(1);
 
-	listPairIter iter;
-	for (iter=bottom.begin(); iter!=bottom.end();) {
+	while (idx < size) {
 		insertNewJacobsthalNumberIntoList(jacobsthalNumber, n);
 		
-		int tmp = *getIteratorByIndex(jacobsthalNumber, n) - 1;
-		if (tmp >= size) tmp = size - 1;
+		int start = *getIteratorByIndex(jacobsthalNumber, n) - 1, end = idx;
+		if (start >= size) start = size - 1;
+		idx = start + 1;
+		n++;
 
-		listPairIter start = getIteratorByIndex(bottom, tmp);
-		listPairIter end = iter, position;
+		listPairIter startIter = bottom.begin();
+		std::advance(startIter, start);
+		if (start == 0) {
+			res.insert(res.begin(), *startIter);
+			continue ;
+		}
 
-		iter = start;
-		iter++;
+		listPairIter resEnd = res.begin();
+		std::advance(resEnd, end * 2 + (start - end));
 		while (true) {
-			position = std::upper_bound(res.begin(), res.end(), *start, compareList);
-			res.insert(position, *start);
+			listPairIter position = std::upper_bound(res.begin(), resEnd, *startIter, compareList);
+			res.insert(position, *startIter);
 			if (start == end) break ;
+			if (position == resEnd)
+				resEnd--;
+			startIter--;
 			start--;
 		}
-		n++;
 	}
 	return res;
 }
