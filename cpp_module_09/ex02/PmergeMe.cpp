@@ -164,7 +164,7 @@ std::vector<PmergeMe::NumberPairVector> PmergeMe::topBottomSortVector(std::vecto
 
 		vectorPairIter resEnd = res.begin() + end * 2 + (start - end);
 		while (start >= end) {
-			vectorPairIter position = std::upper_bound(res.begin(), res.end(), bottom[start], compareVector);
+			vectorPairIter position = std::upper_bound(res.begin(), resEnd, bottom[start], compareVector);
 			res.insert(position, bottom[start]);
 			if (position == resEnd)
 				resEnd--;
