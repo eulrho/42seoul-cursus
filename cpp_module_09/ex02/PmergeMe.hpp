@@ -10,7 +10,6 @@
 
 class PmergeMe {
 	private:
-		void insertData(int argc, char **argv);
 		template <typename Container>
 		void printData(Container &container)
 		{
@@ -25,13 +24,14 @@ class PmergeMe {
 		 * vector *
 		**********/
 		double timeOfVector;
-		double sortList();
+		void sortList();
 		struct NumberPairVector {
 			int number;
 			std::vector<NumberPairVector> pair;
 		};
 		std::vector<NumberPairVector> vector;
 		typedef std::vector<NumberPairVector>::iterator vectorPairIter;
+		void insertDataIntoVector(int argc, char **argv);
 		void recursiveSortVector(std::vector<NumberPairVector> &);
 		std::vector<NumberPairVector> topBottomSortVector(std::vector<NumberPairVector> &, std::vector<NumberPairVector> &);
 		void insertNewJacobsthalNumberIntoVector(std::vector<int> &, int);
@@ -41,25 +41,23 @@ class PmergeMe {
 		 *  list  *
 		**********/
 		double timeOfList;
-		double sortVector();
+		void sortVector();
 		struct NumberPairList {
 			int number;
 			std::list<NumberPairList> pair;
 		};
 		std::list<NumberPairList> list;
 		typedef std::list<NumberPairList>::iterator listPairIter;
+		void insertDataIntoList(int argc, char **argv);
 		void recursiveSortList(std::list<NumberPairList> &);
 		std::list<NumberPairList> topBottomSortList(std::list<NumberPairList> &, std::list<NumberPairList> &);
-		listPairIter listBack(std::list<NumberPairList> &);
-		void insertNewJacobsthalNumberIntoList(std::list<int> &, int);
+		void insertNewJacobsthalNumberIntoList(std::list<int> &);
 		static bool compareList(const NumberPairList &, const NumberPairList &);
 		template <typename Container>
-		typename Container::iterator getIteratorByIndex(Container &container, int idx)
+		typename Container::iterator listBack(Container &container)
 		{
-			typename Container::iterator res = container.begin();
-
-			std::advance(res, idx);
-			return res;
+			typename Container::iterator res = container.end();
+			return --res;
 		}
 	public:
 		PmergeMe();

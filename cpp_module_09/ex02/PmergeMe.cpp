@@ -25,17 +25,18 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &other)
 
 void PmergeMe::fordJohnson(int argc, char **argv)
 {
-	insertData(argc, argv);
+	insertDataIntoVector(argc, argv);
+	insertDataIntoList(argc, argv);
 
 	std::cout << "Before:	";
 	printData(this->vector);
 
-	this->timeOfVector = sortVector();
-	this->timeOfList = sortList();
+	sortVector();
+	sortList();
 
 	std::cout << "After:	";
 	printData(this->vector);
-	printData(this->list);
+	// printData(this->list);
 
 	std::cout << "Time to process a range of	" << argc - 1
 		<< " elements with std::vector :	" << this->timeOfVector << " ms" << std::endl;
@@ -43,8 +44,9 @@ void PmergeMe::fordJohnson(int argc, char **argv)
 		<< " elements with std::list :	" << this->timeOfList << " ms" << std::endl;
 }
 
-void PmergeMe::insertData(int argc, char **argv)
+void PmergeMe::insertDataIntoVector(int argc, char **argv)
 {
+	std::clock_t startVector = std::clock();
 	int idx = 1;
 
 	while (idx < argc) {
@@ -61,22 +63,47 @@ void PmergeMe::insertData(int argc, char **argv)
 			throw std::invalid_argument(std::string("Error"));
 
 		NumberPairVector v;
-		NumberPairList l;
 
 		v.number = number;
-		l.number = number;
 		this->vector.push_back(v);
+		idx++;
+	}
+	this->timeOfVector = (static_cast<double>(std::clock()) - startVector) / CLOCKS_PER_SEC * 1000;
+}
+
+void PmergeMe::insertDataIntoList(int argc, char **argv)
+{
+	std::clock_t startList = std::clock();
+	int idx = 1;
+
+	while (idx < argc) {
+		std::string intToString(argv[idx]), tmp;
+		std::stringstream stream;
+		int number;
+
+		stream.str(intToString);
+		stream >> number;
+		if (stream.fail() || number < 0)
+			throw std::invalid_argument(std::string("Error"));
+		stream >> tmp;
+		if (!tmp.empty())
+			throw std::invalid_argument(std::string("Error"));
+
+		NumberPairList l;
+
+		l.number = number;
 		this->list.push_back(l);
 		idx++;
 	}
+	this->timeOfList = (static_cast<double>(std::clock()) - startList) / CLOCKS_PER_SEC * 1000;
 }
 
-double PmergeMe::sortVector()
+void PmergeMe::sortVector()
 {
 	std::clock_t startVector = std::clock();
 
 	recursiveSortVector(this->vector);
-	return std::clock() - startVector;
+	this->timeOfVector += (static_cast<double>(std::clock()) - startVector) / CLOCKS_PER_SEC * 1000;
 }
 
 void PmergeMe::recursiveSortVector(std::vector<NumberPairVector> &vectorPair)
@@ -157,12 +184,12 @@ void PmergeMe::insertNewJacobsthalNumberIntoVector(std::vector<int> &jacobsthalN
 	jacobsthalNumber.push_back(jacobsthalNumber[n - 1] + 2 * jacobsthalNumber[n - 2]);
 }
 
-double PmergeMe::sortList()
+void PmergeMe::sortList()
 {
 	std::clock_t startList = std::clock();
 
 	recursiveSortList(this->list);
-	return std::clock() - startList;
+	this->timeOfList += (static_cast<double>(std::clock()) - startList) / CLOCKS_PER_SEC * 1000;
 }
 
 void PmergeMe::recursiveSortList(std::list<NumberPairList> &listPair)
@@ -186,7 +213,6 @@ void PmergeMe::recursiveSortList(std::list<NumberPairList> &listPair)
 		}
 		std::advance(iter, 2);
 	}
-
 	if (newListPair.size() >= 2)
 		recursiveSortList(newListPair);
 
@@ -212,9 +238,9 @@ std::list<PmergeMe::NumberPairList> PmergeMe::topBottomSortList(std::list<Number
 	jacobsthalNumber.push_back(1);
 
 	while (idx < size) {
-		insertNewJacobsthalNumberIntoList(jacobsthalNumber, n);
+		insertNewJacobsthalNumberIntoList(jacobsthalNumber);
 		
-		int start = *getIteratorByIndex(jacobsthalNumber, n) - 1, end = idx;
+		int start = *listBack(jacobsthalNumber) - 1, end = idx;
 		if (start >= size) start = size - 1;
 		idx = start + 1;
 		n++;
@@ -241,15 +267,11 @@ std::list<PmergeMe::NumberPairList> PmergeMe::topBottomSortList(std::list<Number
 	return res;
 }
 
-PmergeMe::listPairIter PmergeMe::listBack(std::list<NumberPairList> &target)
+void PmergeMe::insertNewJacobsthalNumberIntoList(std::list<int> &jacobsthalNumber)
 {
-	listPairIter res = target.end();
-	return --res;
-}
+	std::list<int>::iterator back = listBack(jacobsthalNumber);
 
-void PmergeMe::insertNewJacobsthalNumberIntoList(std::list<int> &jacobsthalNumber, int n)
-{
-	jacobsthalNumber.push_back(*getIteratorByIndex(jacobsthalNumber, n - 1) + 2 * *getIteratorByIndex(jacobsthalNumber, n - 2));
+	jacobsthalNumber.push_back(*back + 2 * *(--back));
 }
 
 bool PmergeMe::compareList(const NumberPairList &a, const NumberPairList &b)
