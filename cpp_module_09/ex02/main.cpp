@@ -5,8 +5,8 @@ int main(int argc, char *argv[])
 {
 	try {
 		if (argc == 1) throw std::invalid_argument(std::string("Error"));
-		PmergeMe p;
 
+		PmergeMe p;
 		p.fordJohnson(argc, argv);
 	}
 	catch(std::exception &e) {

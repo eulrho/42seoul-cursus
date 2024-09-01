@@ -7,9 +7,7 @@ int main(int argc, char *argv[])
 		if (argc != 2) throw std::invalid_argument(std::string("Error"));
 
 		RPN rpn;
-		std::string str(argv[1]);
-
-		rpn.postfix(str);
+		rpn.postfix(std::string(argv[1]));
 	}
 	catch(std::exception &e) {
 		std::cout << e.what() << std::endl;
