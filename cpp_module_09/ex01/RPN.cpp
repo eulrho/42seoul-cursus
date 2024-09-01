@@ -81,12 +81,13 @@ void RPN::add()
 	int tmp = this->stack.top();
 	
 	this->stack.pop();
-	res = static_cast<long long>(this->stack.top()) - tmp;
+	res = static_cast<long long>(this->stack.top()) + tmp;
 	if (res < INT_MIN)
 		throw std::invalid_argument(std::string("Error"));
 	this->stack.pop();
 	this->stack.push(res);
 }
+
 void RPN::sub()
 {
 	if (this->stack.size() < 2)
