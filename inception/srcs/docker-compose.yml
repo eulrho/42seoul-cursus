@@ -1,0 +1,14 @@
+version: '1.29.2'
+
+services:
+	nginx:
+		build:
+			context: requirements/nginx
+			dockerfile: Dockerfile
+		image: debian:bullseye
+		networks:
+			- my_network
+
+networks:
+	my_network:
+		driver: bridge
