@@ -1,14 +1,30 @@
 version: '1.29.2'
 
 services:
-	nginx:
+	mariadb:
+		container_name: mariadb
+		image: mariadb:42
+		init: true
 		build:
-			context: requirements/nginx
+			context: ./requirements/mariadb
 			dockerfile: Dockerfile
-		image: debian:bullseye
+			args:
+				- MYSQL_DATABASE
+				- MYSQL_USER
+				- MYSQL_PASSWORD
+				- MYSQL_ROOT_PASSWORD
 		networks:
-			- my_network
+			- inception
+		volumes:
+			- mariadb: var/lib/mysql
+		restart: always
+
+volumes:
+	mariadb:
+		name:mariadb
+		external:true
 
 networks:
-	my_network:
+	inception:
+		name: inception
 		driver: bridge
