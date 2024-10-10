@@ -8,11 +8,11 @@ services:
 		build:
 			context: ./requirements/mariadb
 			dockerfile: Dockerfile
-			args:
-				- MYSQL_DATABASE
-				- MYSQL_USER
-				- MYSQL_PASSWORD
-				- MYSQL_ROOT_PASSWORD
+			environment:
+				- MYSQL_DATABASE: ${MYSQL_DATABASE}
+				- MYSQL_USER: ${MYSQL_USER}
+				- MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+				- MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 		networks:
 			- inception
 		volumes:
@@ -21,8 +21,8 @@ services:
 
 volumes:
 	mariadb:
-		name:mariadb
-		external:true
+		name: mariadb
+		external: true
 
 networks:
 	inception:

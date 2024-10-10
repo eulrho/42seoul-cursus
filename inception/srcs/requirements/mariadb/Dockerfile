@@ -1,10 +1,5 @@
 FROM debian:bullseye
 
-ARG MYSQL_DATABASE
-ARG MYSQL_USER
-ARG MYSQL_PASSWORD
-ARG MYSQL_ROOT_PASSWORD
-
 RUN apt update && \
 	apt upgrade && \
 	apt install -y \
@@ -16,11 +11,9 @@ RUN chmod 777 /var/run/mysqld
 
 COPY ./conf/mariadb.cnf /etc/mysql/mariadb.conf.d/
 RUN chmod 644 /etc/mysql/mariadb.conf.d/mariadb.cnf
-COPY ./conf/dump.sql /usr/local/bin
-
-COPY ./tools/init.sh /usr/local/bin/
-RUN bash /usr/local/bin/init.sh
+COPY ./conf/init.sql /docker-entrypoint-initdb.d/
+RUN chmod 644 /docker-entrypoint-initdb.d/init.sql
 
 EXPOSE 3306
 
-ENTRYPOINT ["mysqld_safe"]
+CMD ["mysqld_safe"]
