@@ -70,19 +70,4 @@ clean: down remove-container remove-images remove-volumes
 
 re: clean all
 
-prepare: update compose
-
-update:
-	sudo hwclock --hctosys
-	sudo apt -y update && sudo apt -y upgrade
-	@if [ $$? -eq 0 ]; then \
-		sudo apt -y install docker.io; \
-		sudo chmod 666 /var/run/docker.sock; \
-	fi
-
-compose:
-	sudo apt -y install curl
-	sudo curl -SL https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
-	sudo chmod +x /usr/local/bin/docker-compose
-
-PHONY: all clean re prepare down up remove-container remove-images remove-volumes
+PHONY: all clean re down up remove-container remove-images remove-volumes
