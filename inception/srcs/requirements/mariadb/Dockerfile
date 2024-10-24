@@ -9,8 +9,8 @@ RUN mkdir -p /var/lib/mysql /var/run/mysqld
 RUN chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
 RUN chmod 777 /var/run/mysqld
 
-COPY ./conf/mariadb.cnf /etc/mysql/mariadb.conf.d/
-RUN chmod +x /etc/mysql/mariadb.conf.d/mariadb.cnf
+COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d/
+RUN chmod +x /etc/mysql/mariadb.conf.d/mariadb.conf
 
 COPY ./tools/init.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/init.sh
