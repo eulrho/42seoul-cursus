@@ -15,9 +15,28 @@ services:
       - mariadb:/var/lib/mysql
     restart: always
 
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    depends_on:
+      - mariadb
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    networks:
+      - inception
+    volumes:
+      - wordpress:/var/lib/mysql
+    restart: always
+
 volumes:
   mariadb:
     name: mariadb
+    external: true
+  wordpress:
+    name: wordpress
     external: true
 
 networks:

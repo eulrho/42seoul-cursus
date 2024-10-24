@@ -17,8 +17,8 @@ all: volumes up
 # 	# fi
 
 volumes:
-	# sudo mkdir -p ${VOL_DIR}/${WP_NAME}
-	# sudo docker volume create --driver local --opt type=none --opt device=${VOL_DIR}/${WP_NAME} --opt o=bind ${WP_NAME}
+	sudo mkdir -p ${VOL_DIR}/${WP_NAME}
+	sudo docker volume create --driver local --opt type=none --opt device=${VOL_DIR}/${WP_NAME} --opt o=bind ${WP_NAME}
 	sudo mkdir -p ${VOL_DIR}/${MDB_NAME}
 	sudo docker volume create --driver local --opt type=none --opt device=${VOL_DIR}/${MDB_NAME} --opt o=bind ${MDB_NAME}
 	# sudo mkdir -p ${VOL_DIR}/${STAT_NAME}
