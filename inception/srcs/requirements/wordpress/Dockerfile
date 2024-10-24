@@ -18,10 +18,4 @@ COPY ./tools/init.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/init.sh
 ENTRYPOINT ["/usr/local/bin/init.sh"]
 
-# RUN mkdir -p /var/www/html/wordpress/wp-content/uploads/2024/02
-# COPY ./conf/uploads/* /var/www/html/wordpress/wp-content/uploads/2024/02
-# RUN chmod -R 755 /var/www/html/wordpress/wp-content/uploads/
-# RUN chomod 644 /var/www/html/wordpress/wp-content/uploads/2024/02/*
-# RUN chown -R www-data:www-data /var/www/html/wordpress/wp-content/uploads/
-
 CMD ["php-fpm", "-F"]
