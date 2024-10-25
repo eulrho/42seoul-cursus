@@ -5,24 +5,16 @@ VOL_DIR			= /home/$(USER)/data
 
 WP_NAME			= wordpress
 MDB_NAME		= mariadb
-STAT_NAME		= static
+NGINX_NAME		= nginx
 NETWORK_NAME	= inception
-SERVICES		= ${WP_NAME} ${MDB_NAME} ${STAT_NAME}
 
 all: volumes up
-
-# hosts:
-# 	# @if ! grep -qFx "127.0.0.1 ${USER}.42.fr" /etc/hosts; then \
-# 	# 	sudo sed -i '2i\127.0.0.1\t${USER}.42.fr' /etc/hosts; \
-# 	# fi
 
 volumes:
 	sudo mkdir -p ${VOL_DIR}/${WP_NAME}
 	sudo docker volume create --driver local --opt type=none --opt device=${VOL_DIR}/${WP_NAME} --opt o=bind ${WP_NAME}
 	sudo mkdir -p ${VOL_DIR}/${MDB_NAME}
 	sudo docker volume create --driver local --opt type=none --opt device=${VOL_DIR}/${MDB_NAME} --opt o=bind ${MDB_NAME}
-	# sudo mkdir -p ${VOL_DIR}/${STAT_NAME}
-	# sudo docker volume create --driver local --opt type=none --opt device=${VOL_DIR}/${STAT_NAME} --opt o=bind ${STAT_NAME}
 
 up:
 	docker-compose -f ${SRC_DIR}/docker-compose.yml up -d --build
@@ -45,8 +37,8 @@ remove-images:
 	@if [ "$(shell docker images -q ${MDB_NAME})" ]; then \
 		docker rmi ${MDB_NAME}; \
 	fi
-	@if [ "$(shell docker images -q ${STAT_NAME})" ]; then \
-		docker rmi ${STAT_NAME}; \
+	@if [ "$(shell docker images -q ${NGINX_NAME})" ]; then \
+		docker rmi ${NGINX_NAME}; \
 	fi
 
 remove-volumes:
@@ -56,14 +48,10 @@ remove-volumes:
 	@if [ "$(shell docker volume ls -q --filter name=${MDB_NAME})" ]; then \
 		docker volume rm ${MDB_NAME}; \
 	fi
-	@if [ "$(shell docker volume ls -q --filter name=${STAT_NAME})" ]; then \
-		docker volume rm ${STAT_NAME}; \
-	fi
 
 clean: down remove-container remove-images remove-volumes
 	sudo rm -rf /home/$(USER)/data/${WP_NAME}
 	sudo rm -rf /home/$(USER)/data/${MDB_NAME}
-	sudo rm -rf /home/$(USER)/data/${STAT_NAME}
 	@if [ "$(shell docker network ls -q --filter name=${NETWORK_NAME})" ]; then \
 		docker network rm ${NETWORK_NAME}; \
 	fi
