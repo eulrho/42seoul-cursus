@@ -16,6 +16,6 @@ mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
 wp config set DB_NAME $MYSQL_DATABASE --allow-root --path=/var/www/html/
 wp config set DB_USER $MYSQL_USER --allow-root --path=/var/www/html/
 wp config set DB_PASSWORD $MYSQL_PASSWORD --allow-root --path=/var/www/html/
-wp config set DB_HOST $MYSQL_HOST --allow-root --path=/var/www/html/
+wp config set DB_HOST mariadb --allow-root --path=/var/www/html/
 
 exec "$@"

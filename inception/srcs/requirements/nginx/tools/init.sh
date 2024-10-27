@@ -8,6 +8,4 @@ sed -i "s|DOMAIN_NAME|$DOMAIN_NAME|g" /etc/nginx/conf.d/nginx.conf
 sed -i "s|KEY_PATH|$CERTS_KEY|g" /etc/nginx/conf.d/nginx.conf
 sed -i "s|CRT_PATH|$CERTS_CRT|g" /etc/nginx/conf.d/nginx.conf
 
-echo "127.0.0.1 $DOMAIN_NAME" >> /etc/hosts
-
 exec "$@"
