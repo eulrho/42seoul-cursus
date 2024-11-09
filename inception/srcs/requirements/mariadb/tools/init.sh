@@ -10,7 +10,10 @@ mariadb -u root -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'
 mariadb -u root -e "FLUSH PRIVILEGES;"
 
 # Import database dump
-mariadb -u root $MYSQL_DATABASE < /usr/local/bin/dump.sql
+if [ -e "/usr/local/bin/dump.sql" ]; then
+	mariadb -u root $MYSQL_DATABASE < /usr/local/bin/dump.sql
+	rm -rf /usr/local/bin/dump.sql
+fi
 
 mariadb -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$MYSQL_ROOT_PASSWORD');"
 mariadb -u root -e "FLUSH PRIVILEGES;"

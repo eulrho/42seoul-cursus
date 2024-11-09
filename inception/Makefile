@@ -6,7 +6,6 @@ VOL_DIR			= /home/$(USER)/data
 WP_NAME			= wordpress
 MDB_NAME		= mariadb
 NGINX_NAME		= nginx
-NETWORK_NAME	= inception
 
 all: volumes host up
 
@@ -57,9 +56,6 @@ remove-volumes:
 clean: down remove-container remove-images remove-volumes
 	sudo rm -rf /home/$(USER)/data/${WP_NAME}
 	sudo rm -rf /home/$(USER)/data/${MDB_NAME}
-	@if [ "$(shell docker network ls -q --filter name=${NETWORK_NAME})" ]; then \
-		docker network rm ${NETWORK_NAME}; \
-	fi
 
 re: clean all
 
